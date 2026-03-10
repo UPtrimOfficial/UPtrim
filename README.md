@@ -2,155 +2,181 @@
  UPtrim gives your local AI a real memory. It sits between your chat app and your AI, remembering who you are, what you've talked about, and what matters to you — across every conversation. Multi-user support, smart context   management, file uploads, agent mode, and a full dashboard. Works with Open WebUI, SillyTavern, llama.cpp, Ollama, and more.
 <div align="center">
 
-<img src="https://img.shields.io/badge/version-1.17.0-0080ff?style=for-the-badge" alt="Version 1.17.0" />
-<img src="https://img.shields.io/badge/python-3.10+-f7d336?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.10+" />
-<img src="https://img.shields.io/badge/license-commercial-22c55e?style=for-the-badge" alt="Commercial License" />
-<img src="https://img.shields.io/badge/OpenAI_API-compatible-412991?style=for-the-badge&logo=openai&logoColor=white" alt="OpenAI Compatible" />
+<br/>
+
+<img src="https://img.shields.io/badge/v1.0.0-0080ff?style=for-the-badge" alt="v1.0.0" />
+&nbsp;
+<img src="https://img.shields.io/badge/OpenAI_Compatible-412991?style=for-the-badge&logo=openai&logoColor=white" alt="OpenAI Compatible" />
+&nbsp;
+<img src="https://img.shields.io/badge/Windows_%7C_macOS_%7C_Linux-22c55e?style=for-the-badge" alt="Cross Platform" />
+
+<br/><br/>
 
 # UPtrim Context Proxy
 
 ### Your AI remembers everything. Finally.
 
+<br/>
+
 Every conversation. Every user. Every fact — remembered automatically.<br/>
-Drop-in memory layer for any OpenAI-compatible LLM backend.
-
-[Get Started](#-getting-started) &nbsp;&bull;&nbsp; [How It Works](#-how-it-works) &nbsp;&bull;&nbsp; [Every Setting Explained](#-every-setting-explained) &nbsp;&bull;&nbsp; [Licensing](#-licensing--tiers)
-
----
-
-**Works with everything you already use**
-
-<img src="https://img.shields.io/badge/Ollama-000000?style=flat-square&logo=ollama" alt="Ollama" />&nbsp;
-<img src="https://img.shields.io/badge/llama.cpp-333333?style=flat-square" alt="llama.cpp" />&nbsp;
-<img src="https://img.shields.io/badge/vLLM-5046e5?style=flat-square" alt="vLLM" />&nbsp;
-<img src="https://img.shields.io/badge/LM_Studio-1a1a2e?style=flat-square" alt="LM Studio" />&nbsp;
-<img src="https://img.shields.io/badge/OpenAI-412991?style=flat-square&logo=openai&logoColor=white" alt="OpenAI" />&nbsp;
-<img src="https://img.shields.io/badge/Open_WebUI-16a34a?style=flat-square" alt="Open WebUI" />&nbsp;
-<img src="https://img.shields.io/badge/SillyTavern-c084fc?style=flat-square" alt="SillyTavern" />&nbsp;
-<img src="https://img.shields.io/badge/n8n-ea4b71?style=flat-square&logo=n8n&logoColor=white" alt="n8n" />&nbsp;
-<img src="https://img.shields.io/badge/Claude_Desktop-d97706?style=flat-square" alt="Claude Desktop" />
-
-</div>
-
----
-
-Your models don't have memory? Now they do. UPtrim sits between your chat frontend and your LLM backend. Upload files and actually talk about them. Route between multiple backends. Let your AI learn who each user is over time. All of it works out of the box — zero changes to your existing setup.
-
-Drop it in front of any OpenAI-compatible backend and point your frontend at it. Same API, now with memory.
-
----
-
-## Table of Contents
-
-| | Section | What You'll Find |
-|---|---------|-----------------|
-| 1 | [Getting Started](#-getting-started) | Install, first launch, connecting your apps |
-| 2 | [How It Works](#-how-it-works) | The big picture — what happens to every request |
-| 3 | [Connecting Your Frontend](#-connecting-your-frontend) | Open WebUI, SillyTavern, custom apps, direct API |
-| 4 | [The Dashboard](#-the-dashboard) | Admin panel, user memory page, chat UI |
-| 5 | [Memory](#-memory) | How memories work, what gets stored, how to tune it |
-| 6 | [File Uploads & RAG](#-file-uploads--rag) | Uploading files, talking about them, semantic search |
-| 7 | [Multi-Backend & Model Routing](#-multi-backend--model-routing) | Multiple LLMs, auto-routing, model aliases |
-| 8 | [Identity & Users](#-identity--users) | Who's who, security modes, user accounts |
-| 9 | [The Agent System](#-the-agent-system) | Multi-step tool use, sub-agents, safety limits |
-| 10 | [Advanced Intelligence](#-advanced-intelligence) | Ghost agents, knowledge graph, persona, predictions |
-| 11 | [MCP Integration](#-mcp-integration) | n8n, Claude Desktop, external memory access |
-| 12 | [CLI Chat Client](#-cli-chat-client) | Terminal chat with themes, streaming, slash commands |
-| 13 | [Desktop App](#-desktop-app) | Native PyQt6 chat application |
-| 14 | [Remote Access](#-remote-access) | Cloudflare Tunnel & Tailscale setup |
-| 15 | [Every Setting Explained](#-every-setting-explained) | Every config key, what it does, when to change it |
-| 16 | [Licensing & Tiers](#-licensing--tiers) | Free trial, paid tiers, feature comparison |
-| 17 | [Troubleshooting](#-troubleshooting) | Common issues and how to fix them |
-
----
-
-## 🚀 Getting Started
-
-### What You Need
-
-> **Minimum:** Python 3.10+ and an LLM backend running somewhere. That's it.
-
-| Requirement | Details |
-|------------|---------|
-| **Python** | 3.10 or higher (3.11–3.13 recommended) |
-| **LLM Backend** | Ollama, llama.cpp, vLLM, LM Studio, OpenAI — anything OpenAI-compatible |
-| **OS** | Windows, macOS, or Linux |
-
-### Install
-
-```bash
-# Grab the code
-git clone <your-repo-url> uptrim
-cd uptrim
-
-# Core dependencies — this is all you need to run
-pip install fastapi uvicorn httpx python-multipart
-
-# Recommended — much better memory extraction
-pip install spacy orjson
-python -m spacy download en_core_web_sm
-```
-
-<details>
-<summary><b>Optional extras</b> — install any of these for more capabilities</summary>
+Drop-in memory layer for any OpenAI-compatible LLM backend.<br/>
+**Zero changes to your existing setup.**
 
 <br/>
 
-| Package | What It Adds |
-|---------|-------------|
-| `sentence-transformers` + `faiss-cpu` | Semantic file search — find content by meaning, not just keywords |
-| `mcp>=1.25,<2` | MCP server for n8n and Claude Desktop integration |
-| `uvloop` | 2-4x faster event loop (Linux/macOS only) |
-| `textual` | Rich terminal UI dashboard |
-| `PyQt6` + `pydantic` | Native desktop chat application |
+[Get Started](#-getting-started) &nbsp;&nbsp;|&nbsp;&nbsp; [Features](#-what-you-get) &nbsp;&nbsp;|&nbsp;&nbsp; [Settings Guide](#-every-setting-explained) &nbsp;&nbsp;|&nbsp;&nbsp; [Licensing](#-licensing--tiers)
 
-```bash
-pip install sentence-transformers faiss-cpu   # Semantic search
-pip install "mcp>=1.25,<2"                    # MCP server
-pip install uvloop                            # Fast event loop
-pip install textual                           # Terminal UI
-```
+<br/>
 
-</details>
+---
 
-### First Launch
+<br/>
 
-```bash
-python main.py
-```
+**Works with everything you already use**
 
-That's it. On first run:
+<br/>
 
-- ✅ Database created automatically
-- ✅ Security token generated — **save this from your console**, you need it for the dashboard
-- ✅ Dashboard opens in your browser at `http://localhost:9099/dashboard`
-- ✅ Proxy starts listening on port `9099`
+<img src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama" alt="Ollama" />&nbsp;
+<img src="https://img.shields.io/badge/llama.cpp-333333?style=for-the-badge" alt="llama.cpp" />&nbsp;
+<img src="https://img.shields.io/badge/vLLM-5046e5?style=for-the-badge" alt="vLLM" />&nbsp;
+<img src="https://img.shields.io/badge/LM_Studio-1a1a2e?style=for-the-badge" alt="LM Studio" />&nbsp;
+<img src="https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white" alt="OpenAI" />
 
-> [!IMPORTANT]
-> If your LLM backend isn't on `localhost:8080`, tell the proxy where it is:
-> ```bash
-> UPSTREAM_ORIGIN=http://my-ollama-server:11434 python main.py
-> ```
-> Or just change it in the dashboard after startup — no restart needed.
+<br/><br/>
 
-### Launch Options
+<img src="https://img.shields.io/badge/Open_WebUI-16a34a?style=for-the-badge" alt="Open WebUI" />&nbsp;
+<img src="https://img.shields.io/badge/SillyTavern-c084fc?style=for-the-badge" alt="SillyTavern" />&nbsp;
+<img src="https://img.shields.io/badge/n8n-ea4b71?style=for-the-badge&logo=n8n&logoColor=white" alt="n8n" />&nbsp;
+<img src="https://img.shields.io/badge/Claude_Desktop-d97706?style=for-the-badge" alt="Claude Desktop" />
 
-```bash
-python main.py                            # Normal — opens dashboard in browser
-python main.py --headless                 # No browser, no TUI — just runs quietly
-python main.py --upstream http://x:8080   # Set backend URL at launch
-python main.py --no-browser               # Runs normally but skips auto-opening browser
-```
-
-<div align="right">
-
-[Back to top](#table-of-contents)
+<br/><br/>
 
 </div>
 
 ---
 
+<br/>
+
+## 🎯 What You Get
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### 🧠 &nbsp; Persistent Memory
+Every user gets their own memory space. Facts are extracted from conversations automatically — names, preferences, work info, relationships — and injected back when relevant. Your model never forgets.
+
+</td>
+<td width="50%" valign="top">
+
+### 📁 &nbsp; Talk To Your Files
+Upload PDFs, spreadsheets, code, docs — 33+ file types. Ask questions and UPtrim finds the right file, pulls the right section, and gives the model what it needs. Even handles *"compare the two contracts."*
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+### 🔀 &nbsp; Multi-Backend Routing
+Connect up to 10 LLM backends. Auto-route simple questions to fast models and complex tasks to powerful ones. Save compute without sacrificing quality.
+
+</td>
+<td width="50%" valign="top">
+
+### 🔐 &nbsp; Per-User Isolation
+Every user's memory and files are completely isolated. Multi-source identity resolution — OWUI headers, API tokens, custom headers — no data leaks between users.
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+### 🤖 &nbsp; Agent Framework
+Multi-step tool-calling agent loop for capable models. File editing, code execution, web search, sub-agents — with configurable safety limits.
+
+</td>
+<td width="50%" valign="top">
+
+### 🧬 &nbsp; Learns Over Time
+Knowledge graph builds connections across conversations. Persona engine adapts to each user's style. Predictive context pre-loads what you'll need before you ask.
+
+</td>
+</tr>
+</table>
+
+<br/>
+
+---
+
+<br/>
+
+## 📑 Guide
+
+<br/>
+
+| | Section | |
+|:---:|---------|---|
+| **01** | [Getting Started](#-getting-started) | First launch, connecting your apps |
+| **02** | [How It Works](#-how-it-works) | What happens to every request |
+| **03** | [Connecting Your Frontend](#-connecting-your-frontend) | Open WebUI, SillyTavern, custom apps, direct API |
+| **04** | [The Dashboard](#-the-dashboard) | Admin panel, user memory page, chat UI |
+| **05** | [Memory](#-memory) | How memories work, what gets stored, how to tune it |
+| **06** | [File Uploads & RAG](#-file-uploads--rag) | Uploading files, talking about them, semantic search |
+| **07** | [Multi-Backend & Model Routing](#-multi-backend--model-routing) | Multiple LLMs, auto-routing, model aliases |
+| **08** | [Identity & Users](#-identity--users) | Who's who, security modes, user accounts |
+| **09** | [The Agent System](#-the-agent-system) | Multi-step tool use, sub-agents, safety limits |
+| **10** | [Advanced Intelligence](#-advanced-intelligence) | Ghost agents, knowledge graph, persona, predictions |
+| **11** | [MCP Integration](#-mcp-integration) | n8n, Claude Desktop, external memory access |
+| **12** | [CLI Chat Client](#-cli-chat-client) | Terminal chat with themes, streaming, slash commands |
+| **13** | [Desktop App](#-desktop-app) | Native chat application |
+| **14** | [Remote Access](#-remote-access) | Cloudflare Tunnel & Tailscale setup |
+| **15** | [Every Setting Explained](#-every-setting-explained) | Every config key — what it does, when to change it |
+| **16** | [Licensing & Tiers](#-licensing--tiers) | Free trial, paid tiers, feature comparison |
+| **17** | [Troubleshooting](#-troubleshooting) | Common issues and how to fix them |
+
+<br/>
+
+---
+
+<br/>
+
+## 🚀 Getting Started
+
+<br/>
+
+> **You need:** An LLM backend running somewhere (Ollama, llama.cpp, vLLM, LM Studio, OpenAI — anything OpenAI-compatible) and UPtrim. That's it.
+
+<br/>
+
+### First Launch
+
+Run UPtrim. On first launch:
+
+| | What Happens |
+|:---:|---|
+| ✅ | Database created automatically |
+| ✅ | Security token generated — **save this from your console**, you need it for the dashboard |
+| ✅ | Dashboard opens in your browser at `http://localhost:9099/dashboard` |
+| ✅ | Proxy starts listening for chat requests on port `9099` |
+
+<br/>
+
+> [!IMPORTANT]
+> If your LLM backend isn't at `localhost:8080`, set your upstream URL in the dashboard after startup — no restart needed. Or configure the `upstream` setting before launching.
+
+<br/>
+
+<div align="right">
+<a href="#-guide">Back to top ↑</a>
+</div>
+
+---
+
+<br/>
+
 ## 🔄 How It Works
+
+<br/>
 
 ```
 ┌──────────────────┐          ┌──────────────────┐          ┌──────────────────┐
@@ -163,58 +189,85 @@ python main.py --no-browser               # Runs normally but skips auto-opening
 │  CLI / Desktop   │          │  Routes models   │          │  OpenAI          │
 │                  │          │                  │          │  LM Studio       │
 └──────────────────┘          └──────────────────┘          └──────────────────┘
-                                Same API in ──▶ Same API out
 ```
 
-UPtrim is invisible to both sides. Your frontend thinks it's talking directly to the LLM. Your backend thinks it's getting normal requests. In between, UPtrim:
+<br/>
 
-| Step | What Happens |
-|:----:|-------------|
-| **1** | **Identifies the user** — from headers, tokens, or other signals your frontend sends |
-| **2** | **Retrieves relevant memories** — things this user has said before, their preferences, facts about them |
-| **3** | **Adds file context** — if the user uploaded files and is asking about them |
-| **4** | **Sends the enriched request** to your backend |
-| **5** | **Streams the response** back to the user |
-| **6** | **Extracts new facts** and stores them for next time |
+UPtrim is **invisible to both sides**. Your frontend thinks it's talking directly to the LLM. Your backend thinks it's getting normal requests. In between:
 
-> The user never sees any of this. They just notice that the AI *remembers* them.
+<br/>
+
+| Step | | What Happens |
+|:----:|---|---|
+| `1` | 🔍 | **Identifies the user** — from headers, tokens, or other signals |
+| `2` | 🧠 | **Retrieves relevant memories** — preferences, facts, history |
+| `3` | 📁 | **Adds file context** — if the user is asking about their uploads |
+| `4` | 📤 | **Sends enriched request** to your backend |
+| `5` | 📥 | **Streams response** back to the user |
+| `6` | 💾 | **Extracts new facts** and stores them for next time |
+
+<br/>
+
+> The user never sees any of this. They just notice the AI *remembers* them.
+
+<br/>
 
 <div align="right">
-
-[Back to top](#table-of-contents)
-
+<a href="#-guide">Back to top ↑</a>
 </div>
 
 ---
 
+<br/>
+
 ## 🔌 Connecting Your Frontend
 
-### Open WebUI
+<br/>
 
-In Open WebUI settings, set the OpenAI API base URL to:
+<table>
+<tr>
+<td width="33%" valign="top">
+
+#### Open WebUI
+
+Set the OpenAI API base URL to:
 ```
 http://<proxy-ip>:9099/v1
 ```
+User identity is picked up automatically from OWUI headers — each user gets their own memory.
 
-UPtrim automatically picks up Open WebUI's user identity headers — each user gets their own isolated memory space. No additional configuration needed.
+</td>
+<td width="33%" valign="top">
 
-### SillyTavern
+#### SillyTavern
 
-Add a new **Chat Completion API** source:
+Add a **Chat Completion API** source:
+- **URL:** `http://<proxy-ip>:9099`
+- **Type:** OpenAI-compatible
 
-| Field | Value |
-|-------|-------|
-| URL | `http://<proxy-ip>:9099` |
-| API Type | OpenAI-compatible |
+Enable SillyTavern integration in the dashboard for per-character memory.
 
-Then enable the SillyTavern integration in the UPtrim dashboard to get per-character memory.
+</td>
+<td width="33%" valign="top">
 
-### Any OpenAI-Compatible App
+#### Any Other App
 
-Just change the base URL to `http://<proxy-ip>:9099/v1`. If your app sends an API key, UPtrim uses that for user identification.
+Change the base URL to:
+```
+http://<proxy-ip>:9099/v1
+```
+If your app sends an API key, UPtrim uses it for user identification.
+
+</td>
+</tr>
+</table>
+
+<br/>
 
 <details>
-<summary><b>Direct API example</b> (Python)</summary>
+<summary><b>Direct API Example</b> (Python)</summary>
+
+<br/>
 
 ```python
 import openai
@@ -236,171 +289,226 @@ for chunk in response:
 
 </details>
 
+<br/>
+
 <div align="right">
-
-[Back to top](#table-of-contents)
-
+<a href="#-guide">Back to top ↑</a>
 </div>
 
 ---
-
-## 📊 The Dashboard
-
-The dashboard lives at **`http://localhost:9099/dashboard`**. Log in with the security token printed at first startup (or set your own — see [`dash_token_custom`](#security--authentication)).
-
-| Section | What You Can Do |
-|---------|----------------|
-| **Status** | Server health, backend connectivity, NLP status, active users, request stats |
-| **Configuration** | Change any setting with live preview before applying |
-| **Users** | Create accounts, link identities, reset passwords |
-| **Memories** | Search, edit, pin, delete, import/export — across all users |
-| **Files** | See uploads, storage usage per user |
-| **System Prompts** | Create and assign custom system prompts |
-| **Model Aliases** | Map friendly names to model IDs |
-| **API Tokens** | Create/revoke programmatic access tokens |
-| **Invite Codes** | Generate codes for self-registration |
-| **Tunnels** | Set up Cloudflare Tunnel or Tailscale right from the UI |
-| **Logs** | Errors, audit trail, security events |
-| **Backup** | One-click backups, full import/export |
-
-> [!TIP]
-> **For end users:** There's a personal memory page at `/my-memory` where users can view and manage their own memories without admin access.
->
-> **Quick chat:** There's a standalone chat UI at `/chat` if you just want to talk to your model through the proxy.
-
-<div align="right">
-
-[Back to top](#table-of-contents)
-
-</div>
-
----
-
-## 🧠 Memory
-
-This is the core of UPtrim. Every conversation is automatically analyzed for facts worth remembering.
-
-### What Gets Remembered
-
-```
-"My name is Alex"                        → 🏷️  identity
-"I'm a Python developer at Acme Corp"   → 💼  work
-"I prefer concise responses"             → 💬  communication
-"My daughter Emma starts school in Sep"  → 👨‍👩‍👧  family
-"I'm allergic to shellfish"              → 🏥  health
-"I use neovim and arch btw"             → 🔧  technical
-```
-
-Next time that user chats, those facts get quietly injected into the conversation context. The model sees them and responds accordingly — the user never has to repeat themselves.
-
-### Memory Categories
-
-| Category | What It Stores | Default Priority |
-|----------|---------------|:----------------:|
-| Identity | Name, age, location — core "who are you" | **9** |
-| Communication | Response style preferences (concise, formal, etc.) | **8** |
-| Health | Allergies, conditions, medications | **7** |
-| Dietary | Food preferences and restrictions | **6** |
-| Work | Job title, company, projects | **6** |
-| Family | Family members and relationships | **6** |
-| Technical | Languages, tools, tech preferences | **5** |
-| Preferences | Likes, dislikes, general preferences | **5** |
-| People | Info about other people the user mentions | **5** |
-| General | Everything else | **3** |
-
-> Higher priority = more likely to be included. Memories at priority 7+ are always injected. Everything else competes based on relevance to the current conversation.
-
-### What Users Can Do
-
-| Action | Where |
-|--------|-------|
-| View all their memories | `/my-memory` page |
-| Edit a memory | If the extraction got something wrong |
-| Delete a memory | Remove anything they don't want stored |
-| Pin a memory | Always include it, no matter what |
-| Report a memory | Flag something problematic |
-
-### What Admins Can Do
-
-| Action | Where |
-|--------|-------|
-| Browse all user memories | Dashboard → Memories |
-| Run quality sweeps | Clean up low-quality or duplicate memories |
-| Run deduplication | System-wide duplicate removal |
-| Import/export | Bulk JSON import and export |
-| Set priorities & TTLs | Per-category tuning |
-| Set memory caps | Per-user limits |
-
-<div align="right">
-
-[Back to top](#table-of-contents)
-
-</div>
-
----
-
-## 📁 File Uploads & RAG
-
-Users upload files and then ask questions about them in conversation. UPtrim figures out which file(s) the user means and injects the relevant content.
-
-### Supported File Types
-
-| Category | Formats |
-|----------|---------|
-| **Documents** | `PDF` `DOCX` `DOC` `PPTX` `XLSX` `XLS` `RTF` `ODT` `EPUB` |
-| **Data** | `CSV` `JSON` `XML` `YAML` `TOML` |
-| **Code** | `Python` `JavaScript` `TypeScript` `Go` `Rust` `Java` `C` `C++` `Ruby` `PHP` `Lua` `R` `Shell` `PowerShell` `SQL` + more |
-| **Text** | `TXT` `Markdown` `LOG` `INI` `CFG` `CONF` |
-| **Web** | `HTML` `CSS` |
-
-### How It Works
-
-When a file is uploaded, UPtrim automatically:
-- Extracts the text content
-- Generates keywords for fast lookup
-- Creates a smart summary of what the file contains and what questions it can answer
-- Optionally creates vector embeddings for semantic search
-
-When the user asks a question:
-- Figures out which file(s) the user means — even with vague references
-- Pulls the relevant sections
-- Injects them into context so the model can answer
-
-> [!NOTE]
-> This works even with 20+ files. Say *"the budget spreadsheet"* and it finds your `.csv` or `.xlsx` budget file. Say *"compare the two contracts"* and it pulls both. Fuzzy matching, synonyms, and file type awareness handle the rest.
-
-<details>
-<summary><b>Enabling semantic search</b> (optional but powerful)</summary>
 
 <br/>
 
-For the best file matching, enable embeddings:
+## 📊 The Dashboard
+
+<br/>
+
+The dashboard lives at **`http://localhost:9099/dashboard`**. Log in with the security token from first startup (or set your own via [`dash_token_custom`](#security--authentication)).
+
+<br/>
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+| Section | What You Can Do |
+|---------|----------------|
+| **Status** | Health, backends, NLP, active users |
+| **Config** | Every setting with live preview |
+| **Users** | Accounts, linking, passwords |
+| **Memories** | Search, edit, pin, import/export |
+| **Files** | Uploads, storage per user |
+| **Prompts** | Custom system prompts |
+
+</td>
+<td width="50%" valign="top">
+
+| Section | What You Can Do |
+|---------|----------------|
+| **Models** | Aliases, auto-routing config |
+| **Tokens** | API token management |
+| **Invites** | Registration invite codes |
+| **Tunnels** | Cloudflare & Tailscale setup |
+| **Logs** | Errors, audit trail, security |
+| **Backup** | One-click backup & restore |
+
+</td>
+</tr>
+</table>
+
+<br/>
+
+> [!TIP]
+> **For end users:** `/my-memory` — personal memory viewer, no admin access needed.
+>
+> **Quick chat:** `/chat` — standalone chat UI through the proxy.
+
+<br/>
+
+<div align="right">
+<a href="#-guide">Back to top ↑</a>
+</div>
+
+---
+
+<br/>
+
+## 🧠 Memory
+
+<br/>
+
+Every conversation is automatically analyzed for facts worth remembering:
+
+<br/>
+
+```
+ "My name is Alex"                         →  🏷️  identity
+ "I'm a Python developer at Acme Corp"     →  💼  work
+ "I prefer concise responses"              →  💬  communication
+ "My daughter Emma starts school in Sep"   →  👨‍👩‍👧  family
+ "I'm allergic to shellfish"               →  🏥  health
+ "I use neovim and arch btw"              →  🔧  technical
+```
+
+<br/>
+
+Next time that user chats, relevant facts are quietly injected into the context. The model responds like it knows them — because now it does.
+
+<br/>
+
+### Memory Categories
+
+<br/>
+
+| Category | What It Stores | Priority | Always On? |
+|:---------|:--------------|:--------:|:----------:|
+| 🏷️ Identity | Name, age, location | **9** | ✅ |
+| 💬 Communication | Response style preferences | **8** | ✅ |
+| 🏥 Health | Allergies, conditions, medications | **7** | |
+| 🍽️ Dietary | Food preferences & restrictions | **6** | |
+| 💼 Work | Job, company, projects | **6** | |
+| 👨‍👩‍👧 Family | Family members & relationships | **6** | |
+| 🔧 Technical | Languages, tools, frameworks | **5** | |
+| ⭐ Preferences | Likes, dislikes | **5** | |
+| 👥 People | Other people mentioned | **5** | |
+| 📝 General | Everything else | **3** | |
+
+<br/>
+
+> Higher priority = more likely included. Priority **7+** is always injected. Everything else competes based on relevance to the current conversation.
+
+<br/>
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+#### What Users Can Do
+
+| | |
+|---|---|
+| 👁️ | View memories at `/my-memory` |
+| ✏️ | Edit if extraction got something wrong |
+| 🗑️ | Delete memories they don't want |
+| 📌 | Pin important ones — always included |
+| 🚩 | Report problematic memories |
+
+</td>
+<td width="50%" valign="top">
+
+#### What Admins Can Do
+
+| | |
+|---|---|
+| 🔍 | Browse **all** user memories |
+| 🧹 | Quality sweeps & deduplication |
+| 📤 | Import/export as JSON |
+| ⚙️ | Per-category priorities & TTLs |
+| 📊 | Per-user memory caps |
+
+</td>
+</tr>
+</table>
+
+<br/>
+
+<div align="right">
+<a href="#-guide">Back to top ↑</a>
+</div>
+
+---
+
+<br/>
+
+## 📁 File Uploads & RAG
+
+<br/>
+
+Users upload files and ask questions about them. UPtrim figures out which file(s) they mean and injects the relevant content.
+
+<br/>
+
+### Supported Formats
+
+<br/>
+
+| | Types |
+|---|---|
+| 📄 **Documents** | `PDF` `DOCX` `DOC` `PPTX` `XLSX` `XLS` `RTF` `ODT` `EPUB` |
+| 📊 **Data** | `CSV` `JSON` `XML` `YAML` `TOML` |
+| 💻 **Code** | `Python` `JavaScript` `TypeScript` `Go` `Rust` `Java` `C/C++` `Ruby` `PHP` `Lua` `R` `Shell` `SQL` + more |
+| 📝 **Text** | `TXT` `Markdown` `LOG` `INI` `CFG` `CONF` |
+| 🌐 **Web** | `HTML` `CSS` |
+
+<br/>
+
+### How It Works
+
+<br/>
+
+**On upload** — text extracted, keywords generated, smart summary created, optional vector embeddings built.
+
+**On question** — UPtrim matches the query to the right file(s), pulls relevant sections, injects into context.
+
+<br/>
+
+> [!NOTE]
+> Works with 20+ files. Say *"the budget spreadsheet"* — it finds your `.csv` or `.xlsx` budget file. Say *"compare the two contracts"* — it pulls both. Fuzzy matching, synonyms, and file type awareness handle the rest.
+
+<br/>
+
+<details>
+<summary><b>Semantic Search</b> — optional but powerful</summary>
+
+<br/>
+
+Enable embeddings for meaning-based matching:
 
 ```json
 "file_embedding_enabled": true
 ```
 
-This adds meaning-based matching on top of keyword matching. Asking about *"employee compensation"* finds content about *"salary breakdown"* even without keyword overlap.
-
-**Requires:** `sentence-transformers` and `faiss-cpu`
-
-```bash
-pip install sentence-transformers faiss-cpu
-```
+Now *"employee compensation"* finds content about *"salary breakdown"* even without keyword overlap. Works on top of the existing keyword matching.
 
 </details>
 
+<br/>
+
 <div align="right">
-
-[Back to top](#table-of-contents)
-
+<a href="#-guide">Back to top ↑</a>
 </div>
 
 ---
 
+<br/>
+
 ## 🔀 Multi-Backend & Model Routing
 
-UPtrim can talk to multiple LLM backends and route requests intelligently.
+<br/>
+
+<table>
+<tr>
+<td width="60%" valign="top">
 
 ### Adding Backends
 
@@ -414,20 +522,10 @@ In the dashboard, add extra backends:
 ]
 ```
 
-> Max backends depends on your tier: **1** (trial) → **5** (earlybird/standard) → **10** (premium)
+Max backends by tier: **1** (trial) → **5** (earlybird/standard) → **10** (premium)
 
-### Auto-Model Routing
-
-When enabled, UPtrim picks the best model for each request:
-
-```
-auto_model_enabled: true
-auto_tier_fast:     "llama3-8b"      ← quick questions, simple chat
-auto_tier_balanced: "llama3-70b"     ← most conversations
-auto_tier_smart:    "gpt-4"          ← complex reasoning, coding
-```
-
-*"What's the weather?"* → fast model. *"Refactor this function and explain the design tradeoffs"* → smart model. You save compute without sacrificing quality.
+</td>
+<td width="40%" valign="top">
 
 ### Model Aliases
 
@@ -435,204 +533,274 @@ Give friendly names to ugly model IDs:
 
 | Alias | Points To |
 |-------|-----------|
-| `writer` | `TheBloke/Nous-Hermes-2-Mixtral-8x7B-DPO-GPTQ` |
+| `writer` | `Nous-Hermes-2-Mixtral-8x7B...` |
 | `coder` | `deepseek-coder-33b-instruct` |
+| `fast` | `llama3-8b-instruct` |
 
-Users request `writer` and UPtrim translates it.
+Users request the alias, UPtrim translates.
+
+</td>
+</tr>
+</table>
+
+<br/>
+
+### Auto-Model Routing
+
+When enabled, UPtrim picks the best model per request:
+
+```
+auto_tier_fast:      "llama3-8b"       ←  quick questions, simple chat
+auto_tier_balanced:  "llama3-70b"      ←  most conversations
+auto_tier_smart:     "gpt-4"           ←  complex reasoning, coding
+```
+
+> *"What's the weather?"* → fast model. &nbsp; *"Refactor this and explain the design tradeoffs"* → smart model.
+
+<br/>
 
 <div align="right">
-
-[Back to top](#table-of-contents)
-
+<a href="#-guide">Back to top ↑</a>
 </div>
 
 ---
+
+<br/>
 
 ## 🔐 Identity & Users
 
-Every user gets isolated memory — User A never sees User B's data.
+<br/>
+
+Every user gets **completely isolated** memory and files. User A never sees User B's data.
+
+<br/>
 
 ### How Users Are Identified
 
-UPtrim checks multiple sources in priority order:
-
 | Priority | Source | When It's Used |
 |:--------:|--------|---------------|
-| 1 | **Open WebUI headers** | If you're behind OWUI |
-| 2 | **Custom headers** | For your own frontend |
-| 3 | **API tokens** | Each token maps to a user |
-| 4 | **SillyTavern headers** | If ST integration is enabled |
-| 5 | **IP fallback** | Last resort (not great for multi-user) |
+| **1** | Open WebUI headers | Behind OWUI |
+| **2** | Custom headers | Your own frontend |
+| **3** | API tokens | Each token → a user |
+| **4** | SillyTavern headers | ST integration enabled |
+| **5** | IP fallback | Last resort |
+
+<br/>
 
 ### User Accounts
 
+<table>
+<tr>
+<td width="50%" valign="top">
+
 | Feature | How |
 |---------|-----|
-| **Self-registration** | Enable `registration_enabled`, optionally require invite codes |
-| **Admin creation** | Dashboard → Users → Create |
-| **User self-service** | Log in at `/my-memory` to manage personal data |
-| **Account linking** | Link an OWUI identity to an API token to the same user |
+| Self-registration | Enable in settings, optional invite codes |
+| Admin creation | Dashboard → Users → Create |
+| Self-service | Users log in at `/my-memory` |
+| Account linking | Link identities across sources |
 
-### Security Modes
+</td>
+<td width="50%" valign="top">
+
+#### Security Modes
 
 | Mode | Best For |
 |------|----------|
-| `auto` | **Recommended.** Detects local vs. exposed and adjusts automatically |
-| `local_only` | Running on your own machine, no auth needed |
-| `open` | Behind your own auth layer (Cloudflare Access, etc.) |
+| `auto` | **Recommended** — auto-adjusts |
+| `local_only` | Your own machine only |
+| `open` | Behind your own auth |
 
-### Identity Modes
+#### Identity Modes
 
-| Mode | What Happens |
-|------|-------------|
-| `legacy` | Backward compatible, lenient matching |
-| `required` | Must identify or get blocked |
-| `strict` | Must identify, spoofing is checked |
-| `quarantine` | Unidentified users get an isolated sandbox |
+| Mode | Behavior |
+|------|----------|
+| `strict` | Must identify, spoofing checked |
+| `required` | Must identify or blocked |
+| `quarantine` | Unknowns get sandboxed |
+| `legacy` | Lenient, backward compat |
+
+</td>
+</tr>
+</table>
+
+<br/>
 
 <div align="right">
-
-[Back to top](#table-of-contents)
-
+<a href="#-guide">Back to top ↑</a>
 </div>
 
 ---
 
+<br/>
+
 ## 🤖 The Agent System
 
-For capable models, UPtrim can run an agentic loop — the model plans, uses tools, reads/writes files, and iterates until the task is done.
+<br/>
 
-### Enabling It
+For capable models — a multi-step tool-calling loop. The model plans, acts, observes, and iterates until the task is done.
+
+<br/>
 
 ```json
 "agent_enabled": true,
 "agent_auto_detect": true
 ```
 
-When auto-detect is on, coding tasks, file operations, and research queries automatically enter agent mode. Regular conversation stays normal.
+> When auto-detect is on, coding tasks, file operations, and research queries enter agent mode automatically. Regular conversation stays normal.
 
-### What The Agent Can Do
+<br/>
 
-| Capability | Description |
-|-----------|-------------|
-| **File operations** | Read, write, and edit files on the server |
-| **Code execution** | Run shell commands and Python scripts |
-| **Web access** | Search the web and fetch URLs |
-| **Math** | Calculator for precise computations |
-| **Memory** | Store and recall user memories mid-task |
-| **Sub-agents** | Spawn parallel workers for complex tasks |
-| **File scouts** | Efficiently analyze large files before editing |
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### Capabilities
+
+| | |
+|---|---|
+| 📖 | Read, write, and edit files |
+| ⚡ | Run shell commands & Python |
+| 🌐 | Web search & URL fetching |
+| 🧮 | Calculator |
+| 🧠 | Store & recall memories |
+| 🔄 | Spawn sub-agents in parallel |
+| 🔍 | Scout large files efficiently |
+
+</td>
+<td width="50%" valign="top">
 
 ### Safety Limits
 
-| Setting | Default | What It Prevents |
-|---------|:-------:|-----------------|
-| Max iterations | **10** | Runaway loops |
-| Timeout | **120s** | Tasks that never finish |
-| Tool restrictions | Configurable | Disable any tools you're uncomfortable with |
-| Tier gating | By license | Advanced features need the right tier |
+| Setting | Default | Purpose |
+|---------|:-------:|---------|
+| Max iterations | **10** | Prevents runaway loops |
+| Timeout | **120s** | Hard cutoff |
+| Tool restrictions | Per-tool | Disable anything risky |
+| Tier gating | By license | Advanced → paid tier |
+
+</td>
+</tr>
+</table>
+
+<br/>
 
 <div align="right">
-
-[Back to top](#table-of-contents)
-
+<a href="#-guide">Back to top ↑</a>
 </div>
 
 ---
+
+<br/>
 
 ## 🧬 Advanced Intelligence
 
-These run in the background to make conversations smarter over time. You don't configure them — they just work when enabled for your tier.
+<br/>
 
-<details>
-<summary><b>Ghost Agent Swarm</b> — Pre-assembled context, ready before you ask</summary>
+These run in the background. No configuration needed — they activate when enabled for your tier.
 
 <br/>
 
-Background workers predict what context you'll need and have it ready before your request even hits the model. Reduces latency and improves relevance for follow-up questions.
+<table>
+<tr>
+<td width="50%" valign="top">
+
+<details>
+<summary><b>👻 Ghost Agent Swarm</b></summary>
+
+<br/>
+
+Background workers predict what context you'll need and pre-assemble it before your request hits the model. Faster responses, better relevance.
 
 </details>
 
 <details>
-<summary><b>Knowledge Graph</b> — Connections between everything mentioned</summary>
+<summary><b>🕸️ Knowledge Graph</b></summary>
 
 <br/>
 
-Automatically builds a web of relationships between people, places, organizations, and concepts across conversations. Ask about something connected to something else and the proxy finds those links — even across different conversations.
+Builds a web of relationships — people, places, organizations, concepts — across all conversations. Ask about something connected to something else and it finds those links.
 
 </details>
 
 <details>
-<summary><b>Persona Engine</b> — Adapts to each user's style</summary>
+<summary><b>🎭 Persona Engine</b></summary>
 
 <br/>
 
-Learns how each user prefers their responses — detailed or concise? Technical or plain? Formal or casual? The model's behavior adjusts automatically over time.
+Learns each user's communication style. Detailed vs. concise? Technical vs. plain? Formal vs. casual? The model adapts automatically.
+
+</details>
+
+</td>
+<td width="50%" valign="top">
+
+<details>
+<summary><b>🔮 Predictive Context</b></summary>
+
+<br/>
+
+Tracks conversation flow patterns. Go from "project updates" to "code review" often? Next time, code memories are pre-loaded before you ask.
 
 </details>
 
 <details>
-<summary><b>Predictive Context</b> — Knows where the conversation is going</summary>
+<summary><b>😴 Memory Consolidation</b></summary>
 
 <br/>
 
-Tracks how your conversations typically flow. If you usually go from "project updates" to "code review," the system pre-loads code-related memories before you even ask.
+Like sleep for your AI's memory. During idle time: merge duplicates, strengthen important connections, let irrelevant memories fade. Keeps things lean.
 
 </details>
 
 <details>
-<summary><b>Memory Consolidation</b> — Sleep for your AI's memory</summary>
+<summary><b>🧬 Intent Classification</b></summary>
 
 <br/>
 
-During idle periods, the system consolidates fragmented memories, merges duplicates, strengthens important connections, and lets irrelevant memories fade. Keeps memory lean and relevant.
+Analyzes each message — question, task, brainstorm, debug — and adjusts how memories are selected and prioritized for that type.
 
 </details>
 
-<details>
-<summary><b>Intent Classification</b> — Understands what kind of request this is</summary>
+</td>
+</tr>
+</table>
 
 <br/>
-
-Analyzes each message type — question, task, brainstorming, debugging — and adjusts how memories are selected and prioritized for that specific kind of interaction.
-
-</details>
 
 <div align="right">
-
-[Back to top](#table-of-contents)
-
+<a href="#-guide">Back to top ↑</a>
 </div>
 
 ---
 
+<br/>
+
 ## 🔗 MCP Integration
 
-UPtrim exposes memory operations via the **Model Context Protocol**, so external tools can read and write memories.
+<br/>
 
-### Setup
+Memory operations exposed via **Model Context Protocol** for external tools.
 
-```bash
-pip install "mcp>=1.25,<2"
-```
+The MCP server runs automatically at `/mcp/` when available.
 
-The MCP server starts automatically at `/mcp/` when the package is installed.
-
-### Available Operations
+<br/>
 
 | Operation | Description |
 |-----------|-------------|
 | **Search** | Find relevant memories for a query |
 | **Store** | Save new facts as memories |
-| **Recall** | Get the most relevant memories for a context |
+| **Recall** | Get most relevant memories for a context |
 | **Forget** | Delete specific memories |
+
+<br/>
 
 <details>
 <summary><b>Using with n8n</b></summary>
 
 <br/>
 
-Add an **MCP Client Tool** node in your n8n workflow:
+Add an **MCP Client Tool** node:
 
 | Field | Value |
 |-------|-------|
@@ -646,7 +814,7 @@ Add an **MCP Client Tool** node in your n8n workflow:
 
 <br/>
 
-Add to your `claude_desktop_config.json`:
+Add to `claude_desktop_config.json`:
 
 ```json
 {
@@ -662,165 +830,167 @@ Add to your `claude_desktop_config.json`:
 }
 ```
 
-Now Claude can search and store memories in your UPtrim instance.
-
 </details>
 
+<br/>
+
 <div align="right">
-
-[Back to top](#table-of-contents)
-
+<a href="#-guide">Back to top ↑</a>
 </div>
 
 ---
 
+<br/>
+
 ## 💻 CLI Chat Client
 
-A full terminal chat client. Stream responses, manage conversations, switch models — all from your terminal.
+<br/>
 
-```bash
-python cli/uptrim_cli.py                              # Auto-detect at localhost:9099
-python cli/uptrim_cli.py --url http://server:9099     # Custom proxy URL
-python cli/uptrim_cli.py --theme nord                 # Color theme
-python cli/uptrim_cli.py --model llama3               # Start with specific model
-```
+Full terminal chat client. Streaming, conversations, model switching — all from your terminal.
+
+<br/>
+
+<table>
+<tr>
+<td width="50%" valign="top">
 
 ### Features
 
-- 🔄 Streaming responses with live tokens/sec
-- 💾 Save, load, and manage conversation history
-- 🎨 6+ color themes — `dark` `light` `monokai` `nord` `dracula` and more
-- 📋 Multi-line paste support
-- 📤 Export as markdown, JSON, or plain text
-- 🧠 View and search your memories from the terminal
-- 🎛️ Customize temperature, system prompt, and sampling on the fly
+| | |
+|---|---|
+| 🔄 | Streaming with live tokens/sec |
+| 💾 | Save, load, manage conversations |
+| 🎨 | 6+ themes — dark, light, monokai, nord, dracula |
+| 📋 | Multi-line paste support |
+| 📤 | Export as markdown, JSON, text |
+| 🧠 | View & search memories |
+| 🎛️ | Temperature, system prompt, sampling |
+
+</td>
+<td width="50%" valign="top">
 
 ### Slash Commands
 
-| Command | What It Does |
-|---------|-------------|
+| Command | |
+|---------|---|
 | `/help` | Show all commands |
 | `/model` | List or switch models |
 | `/temperature 0.7` | Set temperature |
 | `/system` | Edit system prompt |
-| `/memory` | View or search your memories |
-| `/save` | Save this conversation |
-| `/load` | Load a previous conversation |
-| `/export md` | Export as markdown (also: `json`, `txt`) |
+| `/memory` | View/search memories |
+| `/save` | Save conversation |
+| `/load` | Load conversation |
+| `/export md` | Export (md/json/txt) |
 | `/clear` | Start fresh |
 | `/quit` | Exit |
 
+</td>
+</tr>
+</table>
+
+<br/>
+
 <div align="right">
-
-[Back to top](#table-of-contents)
-
+<a href="#-guide">Back to top ↑</a>
 </div>
 
 ---
+
+<br/>
 
 ## 🖥️ Desktop App
 
-A native desktop chat application built with PyQt6.
+<br/>
 
-```bash
-cd chat-app
-pip install PyQt6 pydantic
-python run_chat.py
-```
+Native desktop chat application with conversation management, themes, settings, and full proxy integration.
 
-Full GUI with conversation management, themes, settings, and proxy integration.
+<br/>
 
 <div align="right">
-
-[Back to top](#table-of-contents)
-
+<a href="#-guide">Back to top ↑</a>
 </div>
 
 ---
+
+<br/>
 
 ## 🌐 Remote Access
 
-Access your proxy from anywhere without opening ports on your router.
+<br/>
+
+Access your proxy from anywhere — no port forwarding needed.
+
+<br/>
+
+<table>
+<tr>
+<td width="50%" valign="top">
 
 ### Cloudflare Tunnel
 
-1. Go to the [Cloudflare Zero Trust dashboard](https://one.dash.cloudflare.com/) and create a tunnel
+1. Create a tunnel at [Cloudflare Zero Trust](https://one.dash.cloudflare.com/)
 2. Copy the tunnel token
-3. In UPtrim dashboard: **Tunnels → Cloudflare → Paste token → Start**
+3. Dashboard → **Tunnels → Cloudflare → Paste → Start**
 
-> Your proxy is now accessible at a `*.trycloudflare.com` URL or your custom domain.
+> Accessible at `*.trycloudflare.com` or your custom domain.
+
+</td>
+<td width="50%" valign="top">
 
 ### Tailscale
 
-1. Get an auth key from the [Tailscale admin console](https://login.tailscale.com/admin/settings/keys)
-2. In UPtrim dashboard: **Tunnels → Tailscale → Paste auth key → Start**
+1. Get an auth key from [Tailscale admin](https://login.tailscale.com/admin/settings/keys)
+2. Dashboard → **Tunnels → Tailscale → Paste → Start**
 
-> Your proxy joins your Tailscale mesh network — accessible from any device on it.
+> Joins your Tailscale mesh — accessible from any device on it.
 
-Both tunnels auto-reconnect if the connection drops.
+</td>
+</tr>
+</table>
+
+<br/>
+
+> Both tunnels auto-reconnect if the connection drops.
+
+<br/>
 
 <div align="right">
-
-[Back to top](#table-of-contents)
-
+<a href="#-guide">Back to top ↑</a>
 </div>
 
 ---
 
+<br/>
+
 ## ⚙️ Every Setting Explained
 
-All settings live in `config.json` in the data directory. Change them from the **dashboard** (recommended) or edit the file directly. Environment variables override config values at startup.
+<br/>
+
+All settings live in `config.json`. Change them from the **dashboard** (recommended) or edit the file directly. Environment variables override config values at startup.
 
 > [!TIP]
-> Most settings can be changed without restarting. The dashboard shows a live preview before you apply.
+> Most settings apply immediately — no restart needed. The dashboard shows a live preview before you apply changes.
+
+<br/>
 
 ---
 
 ### Server Basics
 
-<table>
-<tr><td><b><code>upstream</code></b></td><td><code>"http://127.0.0.1:8080"</code></td></tr>
-<tr><td colspan="2">
+<br/>
 
-The URL of your LLM backend — where UPtrim sends chat requests. Set this to match your setup:
+| Setting | Default | What It Does |
+|---------|---------|-------------|
+| **`upstream`** | `"http://127.0.0.1:8080"` | URL of your LLM backend. Ollama = `:11434`, llama.cpp = `:8080`, LM Studio = `:1234`, vLLM = `:8000` |
+| **`host`** | `"0.0.0.0"` | Listen address. `0.0.0.0` = any device on your network. `127.0.0.1` = local only |
+| **`port`** | `9099` | Listen port. Change if 9099 conflicts |
+| **`debug`** | `false` | Verbose logging. Useful for troubleshooting, noisy for daily use |
 
-| Backend | Typical URL |
-|---------|------------|
-| Ollama | `http://localhost:11434` |
-| llama.cpp | `http://localhost:8080` |
-| LM Studio | `http://localhost:1234` |
-| vLLM | `http://localhost:8000` |
-| OpenAI | `https://api.openai.com` |
+<br/>
 
-</td></tr>
-</table>
+**`extra_backends`** — `[]`
 
-<table>
-<tr><td><b><code>host</code></b></td><td><code>"0.0.0.0"</code></td></tr>
-<tr><td colspan="2">
-What address UPtrim listens on. <code>0.0.0.0</code> accepts connections from any device on your network. Change to <code>127.0.0.1</code> if you only want local access.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>port</code></b></td><td><code>9099</code></td></tr>
-<tr><td colspan="2">
-The port UPtrim listens on. Change if 9099 conflicts with something else on your system.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>debug</code></b></td><td><code>false</code></td></tr>
-<tr><td colspan="2">
-Verbose logging. Useful for troubleshooting, noisy for production. Leave off unless you're chasing a bug.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>extra_backends</code></b></td><td><code>[]</code></td></tr>
-<tr><td colspan="2">
-
-Additional LLM backends beyond your primary. Each entry needs a `url` and optional `name` and `api_key`:
+Additional LLM backends. Each entry needs `url`, optional `name` and `api_key`:
 
 ```json
 [
@@ -829,162 +999,75 @@ Additional LLM backends beyond your primary. Each entry needs a `url` and option
 ]
 ```
 
-Max backends depends on tier: 1 (trial) → 5 (earlybird/standard) → 10 (premium).
+> Max backends: **1** (trial) → **5** (earlybird/standard) → **10** (premium)
 
-</td></tr>
-</table>
+<br/>
 
 ---
 
 ### Context & Token Management
 
-> These control how much of the model's context window goes to memory, files, and conversation history.
+<br/>
 
-<table>
-<tr><td><b><code>context_tokens</code></b></td><td><code>8000</code></td></tr>
-<tr><td colspan="2">
-Your model's total context window in tokens. <b>Match this to your model.</b> Running an 8K model? Set to ~8000. 32K model? 32000. 128K? You get the idea. Getting this wrong is the #1 cause of weird behavior.
-</td></tr>
-</table>
+> These control how the model's context window is divided between memory, files, and conversation.
 
-<table>
-<tr><td><b><code>reserve_tokens</code></b></td><td><code>5000</code></td></tr>
-<tr><td colspan="2">
-Tokens reserved for the model's response. Context of 8000 minus reserve of 5000 = 3000 tokens for input (system prompt + memories + messages). Increase if your model gives long responses.
-</td></tr>
-</table>
+<br/>
 
-<table>
-<tr><td><b><code>soft_limit</code></b></td><td><code>1500</code></td></tr>
-<tr><td colspan="2">
-Preferred character limit for memory injection. UPtrim stays under this for most requests — only exceeds it when high-priority memories demand it.
-</td></tr>
-</table>
+| Setting | Default | What It Does | When To Change |
+|---------|:-------:|-------------|----------------|
+| **`context_tokens`** | `8000` | Your model's total context window. **Match this to your model.** 8K model → 8000. 32K → 32000. 128K → 128000. | Always set this first — wrong value = weird behavior |
+| **`reserve_tokens`** | `5000` | Tokens saved for the model's response | Increase if responses get cut off |
+| **`soft_limit`** | `1500` | Preferred character limit for memory injection | Lower if memories crowd out conversation |
+| **`hard_limit`** | `3000` | Absolute max memory injection characters | Safety cap — rarely needs changing |
+| **`max_sys_chars`** | `1500` | Max system message length after processing | Increase for long custom system prompts |
+| **`max_msg_chars`** | `600` | Max per-message summary when condensing history | Lower to save context space |
+| **`recent_keep`** | `6` | Recent turns kept in full (older get summarized) | **4–8 is the sweet spot** |
+| **`chars_per_token`** | `3.0` | Estimated chars per token for budget math | Most models: 2.5–4.0 |
+| **`ai_short`** | `80` | AI responses shorter than this adjust extraction | Rarely needs changing |
+| **`user_short_words`** | `3` | Messages under this skip extraction | Keeps "hi" and "ok" out of memories |
+| **`summary_chars`** | `500` | Target length for conversation summaries | Increase for more detailed history |
 
-<table>
-<tr><td><b><code>hard_limit</code></b></td><td><code>3000</code></td></tr>
-<tr><td colspan="2">
-Absolute maximum characters of memory to inject. Even with tons of relevant memories, injection stops here.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>max_sys_chars</code></b></td><td><code>1500</code></td></tr>
-<tr><td colspan="2">
-Maximum character length for the system message. Longer system prompts get trimmed.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>max_msg_chars</code></b></td><td><code>600</code></td></tr>
-<tr><td colspan="2">
-Max summary length per older user message when condensing conversation history.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>recent_keep</code></b></td><td><code>6</code></td></tr>
-<tr><td colspan="2">
-How many recent conversation turns to keep in full (older ones get summarized). Higher = more conversation context, less room for memories. <b>Sweet spot: 4–8.</b>
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>chars_per_token</code></b></td><td><code>3.0</code></td></tr>
-<tr><td colspan="2">
-Estimated characters per token for budget math. English text averages 3–4. Most models work fine at 3.0.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>ai_short</code></b></td><td><code>80</code></td></tr>
-<tr><td colspan="2">
-AI responses shorter than this (characters) are treated as "short responses" — extraction behavior may adjust.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>user_short_words</code></b></td><td><code>3</code></td></tr>
-<tr><td colspan="2">
-Messages under this word count skip memory extraction. Keeps "hi", "ok", and "thanks" out of memories.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>summary_chars</code></b></td><td><code>500</code></td></tr>
-<tr><td colspan="2">
-Target length for auto-generated conversation summaries.
-</td></tr>
-</table>
+<br/>
 
 ---
 
 ### Memory Settings
 
-> These control how memories are stored, prioritized, and injected into conversations.
+<br/>
 
-<table>
-<tr><td><b><code>mem_max_inject</code></b></td><td><code>1800</code></td></tr>
-<tr><td colspan="2">
-Total character budget for memory injection per request. All memories combined must fit in this.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>mem_always_pri</code></b></td><td><code>7</code></td></tr>
-<tr><td colspan="2">
-Priority threshold for "always inject." Memories at or above this priority are always included, no matter the topic. Lower it to include more by default; raise it to be picky.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>mem_relevance_boost</code></b></td><td><code>2</code></td></tr>
-<tr><td colspan="2">
-How much relevance matters vs. raw priority. At <code>1</code>, priority dominates. At <code>3+</code>, a highly relevant low-priority memory can beat an irrelevant high-priority one.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>mem_max_per_user</code></b></td><td><code>500</code></td></tr>
-<tr><td colspan="2">
-Max memories stored per user. <code>0</code> = unlimited. When hit, lowest-quality memories get pruned. <b>Good range for active users: 200–500.</b>
-</td></tr>
-</table>
-
-<details>
-<summary><b>Per-Category Priority & Always-Inject</b></summary>
+| Setting | Default | What It Does | When To Change |
+|---------|:-------:|-------------|----------------|
+| **`mem_max_inject`** | `1800` | Total character budget for all injected memories | Increase for models with big context |
+| **`mem_always_pri`** | `7` | Priority threshold for "always inject" | Lower = more memories always shown |
+| **`mem_relevance_boost`** | `2` | How much relevance matters vs. raw priority | At 3+, relevant beats high-priority |
+| **`mem_max_per_user`** | `500` | Max memories per user (0 = unlimited) | **200–500 for active daily users** |
 
 <br/>
 
-Each category has a **priority** (1–10) and an **always-inject** flag. Higher priority = included first. Always-inject = included regardless of relevance.
+<details>
+<summary><b>Per-Category Priority & Always-Inject</b> — tune what gets remembered and when</summary>
+
+<br/>
+
+Each category has a **priority** (1–10) and an **always-inject** flag.
 
 | Setting | Default | What It Controls |
 |---------|:-------:|-----------------|
-| `mem_pri_identity` | `9` | Name, age, location — the core "who are you" |
-| `mem_always_identity` | `true` | Always include? **Yes** — forgetting a name feels broken |
-| `mem_pri_communication` | `8` | Response style (concise, detailed, formal) |
-| `mem_always_communication` | `true` | Always include? **Yes** — keeps tone consistent |
-| `mem_pri_health` | `7` | Allergies, conditions, medications |
-| `mem_always_health` | `false` | Only when health topics come up |
-| `mem_pri_dietary` | `6` | Food preferences and restrictions |
-| `mem_always_dietary` | `false` | Only when food is discussed |
-| `mem_pri_work` | `6` | Job, company, projects, role |
-| `mem_always_work` | `false` | Only for work conversations |
-| `mem_pri_family` | `6` | Family members and relationships |
-| `mem_always_family` | `false` | Only when family comes up |
-| `mem_pri_technical` | `5` | Languages, tools, frameworks |
-| `mem_always_technical` | `false` | Only for tech conversations |
-| `mem_pri_preference` | `5` | Likes, dislikes, preferences |
-| `mem_always_preference` | `false` | Only when relevant |
-| `mem_pri_people` | `5` | Other people the user mentions |
-| `mem_always_people` | `false` | Only when those people come up |
-| `mem_pri_general` | `3` | Everything else |
-| `mem_always_general` | `false` | Only when relevant |
+| `mem_pri_identity` / `mem_always_identity` | **9** / ✅ | Name, age, location — forgetting a name feels broken |
+| `mem_pri_communication` / `mem_always_communication` | **8** / ✅ | Response style — keeps tone consistent |
+| `mem_pri_health` / `mem_always_health` | **7** / ❌ | Allergies, conditions — only when relevant |
+| `mem_pri_dietary` / `mem_always_dietary` | **6** / ❌ | Food preferences — only when food is discussed |
+| `mem_pri_work` / `mem_always_work` | **6** / ❌ | Job, company — only for work conversations |
+| `mem_pri_family` / `mem_always_family` | **6** / ❌ | Family members — only when family comes up |
+| `mem_pri_technical` / `mem_always_technical` | **5** / ❌ | Languages, tools — only for tech talk |
+| `mem_pri_preference` / `mem_always_preference` | **5** / ❌ | Likes and dislikes — only when relevant |
+| `mem_pri_people` / `mem_always_people` | **5** / ❌ | Other people mentioned — only when they come up |
+| `mem_pri_general` / `mem_always_general` | **3** / ❌ | Everything else — only when relevant |
 
 > [!TIP]
-> **Users complain the AI "forgets" something?** Find its category and raise the priority or set `always` to `true`.
+> **AI "forgets" something?** Find its category, raise priority or set `always` to `true`.
 >
-> **Model drowning in irrelevant memories?** Lower priorities or set more categories to `always: false`.
+> **Drowning in irrelevant memories?** Lower priorities or set more categories to `always: false`.
 
 </details>
 
@@ -995,580 +1078,281 @@ Each category has a **priority** (1–10) and an **always-inject** flag. Higher 
 
 | Setting | Default | Meaning |
 |---------|:-------:|---------|
-| `mem_ttl_people` | `30` | Memories about other people expire after 30 days |
-| `mem_ttl_general` | `0` | General memories never expire (`0` = forever) |
-| `mem_ttl_uploaded` | `90` | File-sourced memories expire after 90 days |
-| `mem_ttl_temporary` | `7` | Temporary/situation memories expire after 7 days |
+| `mem_ttl_people` | **30** | Memories about others expire after 30 days |
+| `mem_ttl_general` | **0** | General memories never expire (0 = forever) |
+| `mem_ttl_uploaded` | **90** | File-sourced memories expire after 90 days |
+| `mem_ttl_temporary` | **7** | Situational memories expire after 7 days |
 
-Set to `0` to disable expiration. Lower the number if memory gets cluttered.
+Set to `0` to disable expiration. Lower if memory gets cluttered.
 
 </details>
-
----
-
-### File Upload & RAG Settings
-
-<table>
-<tr><td><b><code>upload_max_mb</code></b></td><td><code>100</code></td></tr>
-<tr><td colspan="2">
-Max single file size in MB. Need to upload huge files? Raise it. Most users are fine at 100.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>upload_max_files_per_user</code></b></td><td><code>50</code></td></tr>
-<tr><td colspan="2">
-How many files a user can have at once. Prevents one user from filling your disk.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>upload_max_bytes_per_user</code></b></td><td><code>500</code></td></tr>
-<tr><td colspan="2">
-Total storage per user in MB. 500 = lots of small files or a few large ones.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>upload_chunk_size</code></b></td><td><code>400</code></td></tr>
-<tr><td colspan="2">
-Text chunk size in KB for file retrieval. Smaller = more precise but more overhead. Bigger = more context per hit but less precise. <b>Sweet spot: 300–500.</b>
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>upload_max_chunks</code></b></td><td><code>50</code></td></tr>
-<tr><td colspan="2">
-Max chunks per file. Content beyond this gets truncated.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>file_inject_budget</code></b></td><td><code>4000</code></td></tr>
-<tr><td colspan="2">
-Max characters of file content injected per request. Increase for models with large context windows.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>file_inject_max</code></b></td><td><code>3</code></td></tr>
-<tr><td colspan="2">
-Max files injected per request. User has 20 files and asks a vague question? UPtrim picks the top 3 most relevant.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>file_budget_dynamic</code></b></td><td><code>true</code></td></tr>
-<tr><td colspan="2">
-File budget adapts based on available context. Memories using less room → files get more room. <b>Leave on.</b>
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>file_budget_pct</code></b></td><td><code>0.40</code></td></tr>
-<tr><td colspan="2">
-With dynamic budgeting, files can use up to this percentage of remaining context after system prompt and messages.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>file_budget_safety_margin</code></b></td><td><code>500</code></td></tr>
-<tr><td colspan="2">
-Safety buffer (chars) so file injection doesn't overflow the context.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>allow_query_param_token</code></b></td><td><code>false</code></td></tr>
-<tr><td colspan="2">
-Allow <code>?token=xxx</code> in URLs. Convenient for some integrations but less secure (tokens show in logs). <b>Leave off unless needed.</b>
-</td></tr>
-</table>
-
-<details>
-<summary><b>Semantic File Search (Optional)</b></summary>
 
 <br/>
 
-<table>
-<tr><td><b><code>file_embedding_enabled</code></b></td><td><code>false</code></td></tr>
-<tr><td colspan="2">
-FAISS-powered semantic search. Without it, keyword + fuzzy matching works well. With it, you also get meaning-based matching — <i>"employee compensation"</i> finds <i>"salary breakdown"</i> even without keyword overlap. Requires <code>sentence-transformers</code> + <code>faiss-cpu</code>.
-</td></tr>
-</table>
+---
 
-<table>
-<tr><td><b><code>file_embedding_model</code></b></td><td><code>"BAAI/bge-base-en-v1.5"</code></td></tr>
-<tr><td colspan="2">
-Embedding model. Default is a good quality/speed balance. Change only if you know what you're doing.
-</td></tr>
-</table>
+### File Upload & RAG
 
-<table>
-<tr><td><b><code>file_embedding_chunk_size</code></b></td><td><code>512</code></td></tr>
-<tr><td colspan="2">
-Chunk size for embeddings specifically. Larger = more context per embedding, less precise.
-</td></tr>
-</table>
+<br/>
 
-<table>
-<tr><td><b><code>file_embedding_topk</code></b></td><td><code>5</code></td></tr>
-<tr><td colspan="2">
-Top-k embedding matches to consider. Higher = more candidates, more processing.
-</td></tr>
-</table>
+| Setting | Default | What It Does | When To Change |
+|---------|:-------:|-------------|----------------|
+| **`upload_max_mb`** | `100` | Max single file size (MB) | Raise for large files |
+| **`upload_max_files_per_user`** | `50` | Max files per user | Prevents disk filling |
+| **`upload_max_bytes_per_user`** | `500` | Total storage per user (MB) | Adjust per your disk space |
+| **`upload_chunk_size`** | `400` | Text chunk size (KB) for retrieval | **300–500 is the sweet spot** |
+| **`upload_max_chunks`** | `50` | Max chunks per file | Content past this is truncated |
+| **`file_inject_budget`** | `4000` | Max chars of file content per request | Increase for large context models |
+| **`file_inject_max`** | `3` | Max files injected per request | Increase if model handles more context |
+| **`file_budget_dynamic`** | `true` | Auto-adapt budget to available space | **Leave on** |
+| **`file_budget_pct`** | `0.40` | % of remaining context for files | Higher = more file content |
+| **`file_budget_safety_margin`** | `500` | Buffer to prevent context overflow | Rarely needs changing |
+| **`allow_query_param_token`** | `false` | Allow `?token=xxx` in URLs | Less secure — leave off unless needed |
 
-<table>
-<tr><td><b><code>file_embedding_threshold</code></b></td><td><code>0.35</code></td></tr>
-<tr><td colspan="2">
-Minimum similarity for a match. Lower = more results (noisier). Higher = only strong matches. <b>Typical: 0.3–0.5.</b>
-</td></tr>
-</table>
+<br/>
 
-<table>
-<tr><td><b><code>embedding_gpu</code></b></td><td><code>"auto"</code></td></tr>
-<tr><td colspan="2">
-<code>auto</code> detects CUDA. <code>always</code> forces GPU (fails without one). <code>never</code> forces CPU.
-</td></tr>
-</table>
+<details>
+<summary><b>Semantic File Search</b> (optional)</summary>
+
+<br/>
+
+| Setting | Default | What It Does |
+|---------|---------|-------------|
+| **`file_embedding_enabled`** | `false` | FAISS semantic search — meaning-based matching on top of keywords |
+| **`file_embedding_model`** | `"BAAI/bge-base-en-v1.5"` | Embedding model — default is a solid balance |
+| **`file_embedding_chunk_size`** | `512` | Chunk size for embeddings specifically |
+| **`file_embedding_topk`** | `5` | Top-k matches to consider |
+| **`file_embedding_threshold`** | `0.35` | Min similarity score. **0.3–0.5 typical** |
+| **`embedding_gpu`** | `"auto"` | `auto` / `always` / `never` |
 
 </details>
+
+<br/>
 
 ---
 
 ### Security & Authentication
 
-<table>
-<tr><td><b><code>security_mode</code></b></td><td><code>"auto"</code></td></tr>
-<tr><td colspan="2">
+<br/>
 
-| Value | Behavior |
-|-------|----------|
-| `auto` | **Recommended.** Detects local vs. exposed, adjusts automatically |
-| `local_only` | Relaxed auth — assumes only you can access it |
-| `open` | Assumes you have your own auth in front (Cloudflare Access, nginx, etc.) |
+| Setting | Default | What It Does |
+|---------|---------|-------------|
+| **`security_mode`** | `"auto"` | `auto` (recommended) / `local_only` / `open` (behind your own auth) |
+| **`trusted_proxies`** | `"127.0.0.1,::1"` | IPs of trusted reverse proxies. Add nginx/Cloudflare IPs here |
+| **`dash_token_custom`** | `""` | Your own dashboard token. Empty = auto-generated |
+| **`dashboard_password`** | `""` | Optional password gate (in addition to token) |
+| **`protect_read_endpoints`** | `true` | Require auth for read-only endpoints |
+| **`log_security_events`** | `true` | Log failed auth, suspicious requests. **Leave on** |
+| **`maintenance_mode`** | `false` | Reject all writes. Use during backups |
+| **`identity_mode`** | `"strict"` | `strict` / `required` / `quarantine` / `legacy` |
+| **`security_profile`** | `"cloudflare_strict"` | Security preset. Most secure by default |
+| **`trust_owui_headers`** | `"auto"` | Trust OWUI identity headers. `auto` / `always` / `never` |
+| **`owui_hmac_secret`** | `""` | HMAC secret for cryptographic header verification |
+| **`strict_memory_isolation`** | `true` | Block anon/quarantined from memory ops. **Leave on** |
+| **`identity_source_priority`** | `"owui_header,custom_header,api_token,api_payload,ip_fallback"` | Identity check order |
 
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>trusted_proxies</code></b></td><td><code>"127.0.0.1,::1"</code></td></tr>
-<tr><td colspan="2">
-Comma-separated IPs of trusted reverse proxies. Behind nginx or Cloudflare? Add their IPs here so identity resolution works correctly.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>dash_token_custom</code></b></td><td><code>""</code></td></tr>
-<tr><td colspan="2">
-Set your own dashboard token instead of the auto-generated one. Empty = use auto-generated.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>dashboard_password</code></b></td><td><code>""</code></td></tr>
-<tr><td colspan="2">
-Optional password gate for the dashboard. If set, users enter this password <i>in addition to</i> the token.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>protect_read_endpoints</code></b></td><td><code>true</code></td></tr>
-<tr><td colspan="2">
-Require auth even for read-only API endpoints. Set <code>false</code> if you want unauthenticated apps to read data.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>log_security_events</code></b></td><td><code>true</code></td></tr>
-<tr><td colspan="2">
-Log failed auth, suspicious requests, etc. <b>Leave on.</b>
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>maintenance_mode</code></b></td><td><code>false</code></td></tr>
-<tr><td colspan="2">
-Rejects all writes. Useful during backups or migrations.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>identity_mode</code></b></td><td><code>"strict"</code></td></tr>
-<tr><td colspan="2">
-How strictly identity is enforced. See <a href="#identity-modes">Identity Modes</a>.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>security_profile</code></b></td><td><code>"cloudflare_strict"</code></td></tr>
-<tr><td colspan="2">
-Preset security config. <code>cloudflare_strict</code> is the most secure. <code>default</code> is more permissive. <code>cloudflare_quarantine</code> sandboxes unknowns.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>trust_owui_headers</code></b></td><td><code>"auto"</code></td></tr>
-<tr><td colspan="2">
-Trust Open WebUI's identity headers. <code>auto</code> trusts when behind a trusted proxy. <code>always</code> trusts unconditionally. <code>never</code> ignores them.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>owui_hmac_secret</code></b></td><td><code>""</code></td></tr>
-<tr><td colspan="2">
-HMAC secret for cryptographic header verification. Prevents spoofing. Set this to a shared secret between OWUI and UPtrim.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>strict_memory_isolation</code></b></td><td><code>true</code></td></tr>
-<tr><td colspan="2">
-Blocks anonymous/quarantined users from all memory operations. <b>Strong default — leave on.</b>
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>identity_source_priority</code></b></td><td><code>"owui_header,custom_header,api_token,api_payload,ip_fallback"</code></td></tr>
-<tr><td colspan="2">
-Order identity sources are checked. Rearrange if your setup needs different priority.
-</td></tr>
-</table>
+<br/>
 
 <details>
 <summary><b>Rate Limiting</b></summary>
 
 <br/>
 
-<table>
-<tr><td><b><code>rate_limit_rpm</code></b></td><td><code>60</code></td></tr>
-<tr><td colspan="2">
-Max requests per minute per user. Higher for power users, lower for public instances.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>rate_limit_burst</code></b></td><td><code>10</code></td></tr>
-<tr><td colspan="2">
-Burst allowance above the rate limit before throttling kicks in.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>max_queue_depth</code></b></td><td><code>20</code></td></tr>
-<tr><td colspan="2">
-Max queued requests. Full queue = new requests rejected immediately.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>stale_request_timeout</code></b></td><td><code>30</code></td></tr>
-<tr><td colspan="2">
-Seconds before a queued request is dropped as stale.
-</td></tr>
-</table>
+| Setting | Default | What It Does |
+|---------|:-------:|-------------|
+| `rate_limit_rpm` | **60** | Max requests/minute per user |
+| `rate_limit_burst` | **10** | Burst allowance above limit |
+| `max_queue_depth` | **20** | Max queued requests |
+| `stale_request_timeout` | **30** | Seconds before queued request is dropped |
 
 </details>
+
+<br/>
 
 ---
 
 ### Registration & Invites
 
-<table>
-<tr><td><b><code>registration_enabled</code></b></td><td><code>false</code></td></tr>
-<tr><td colspan="2">
-Allow self-registration. Off by default.
-</td></tr>
-</table>
+<br/>
 
-<table>
-<tr><td><b><code>registration_require_invite</code></b></td><td><code>true</code></td></tr>
-<tr><td colspan="2">
-Require an invite code to register. Create codes from the dashboard.
-</td></tr>
-</table>
+| Setting | Default | What It Does |
+|---------|:-------:|-------------|
+| **`registration_enabled`** | `false` | Allow self-registration |
+| **`registration_require_invite`** | `true` | Require invite code |
+| **`registration_default_role`** | `"user"` | Role for new users. `user` or `viewer` |
 
-<table>
-<tr><td><b><code>registration_default_role</code></b></td><td><code>"user"</code></td></tr>
-<tr><td colspan="2">
-Role for new self-registered users. Usually <code>user</code>. Options: <code>user</code>, <code>viewer</code>.
-</td></tr>
-</table>
+<br/>
 
 ---
 
 ### SillyTavern Integration
 
-<table>
-<tr><td><b><code>st_enabled</code></b></td><td><code>true</code></td></tr>
-<tr><td colspan="2">
-Detect SillyTavern user headers automatically.
-</td></tr>
-</table>
+<br/>
 
-<table>
-<tr><td><b><code>st_auto_create_users</code></b></td><td><code>true</code></td></tr>
-<tr><td colspan="2">
-Auto-create accounts for new SillyTavern users.
-</td></tr>
-</table>
+| Setting | Default | What It Does |
+|---------|---------|-------------|
+| **`st_enabled`** | `true` | Detect SillyTavern headers |
+| **`st_auto_create_users`** | `true` | Auto-create accounts for ST users |
+| **`st_header_name`** | `"x-st-user"` | Header with ST username |
+| **`st_user_prefix`** | `"st:"` | Prefix to avoid ID collisions |
+| **`st_default_role`** | `"user"` | Default role for ST users |
 
-<table>
-<tr><td><b><code>st_header_name</code></b></td><td><code>"x-st-user"</code></td></tr>
-<tr><td colspan="2">
-The header SillyTavern sends the username in.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>st_user_prefix</code></b></td><td><code>"st:"</code></td></tr>
-<tr><td colspan="2">
-Prefix for SillyTavern user IDs to avoid collisions.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>st_default_role</code></b></td><td><code>"user"</code></td></tr>
-<tr><td colspan="2">
-Default role for auto-created ST users.
-</td></tr>
-</table>
+<br/>
 
 ---
 
 ### NLP & Extraction
 
-<table>
-<tr><td><b><code>use_spacy</code></b></td><td><code>true</code></td></tr>
-<tr><td colspan="2">
-Use spaCy for memory extraction. Falls back to regex automatically if not installed. spaCy is significantly better.
-</td></tr>
-</table>
+<br/>
 
-<table>
-<tr><td><b><code>nlp_mode</code></b></td><td><code>"auto"</code></td></tr>
-<tr><td colspan="2">
+| Setting | Default | What It Does |
+|---------|---------|-------------|
+| **`use_spacy`** | `true` | Use spaCy for extraction. Falls back to regex if unavailable |
+| **`nlp_mode`** | `"auto"` | See modes below |
+| **`use_gpu`** | `"auto"` | GPU for spaCy: `auto` / `always` / `never` |
 
-| Value | Quality | Speed | Requirements |
-|-------|:-------:|:-----:|-------------|
+<br/>
+
+| NLP Mode | Quality | Speed | Needs |
+|----------|:-------:|:-----:|-------|
 | `auto` | Best available | Auto | Whatever's installed |
-| `spacy_trf` | Best | Slow (fast with GPU) | `en_core_web_trf` model |
-| `full_spacy` | Good | Fast | `en_core_web_sm` model |
-| `spacy_lite` | Decent | Very fast | `en_core_web_sm` model |
+| `spacy_trf` | ⭐⭐⭐ | Slow (fast w/ GPU) | Transformer model |
+| `full_spacy` | ⭐⭐ | Fast | Standard model |
+| `spacy_lite` | ⭐ | Very fast | Small model |
 | `regex_only` | Basic | Instant | Nothing extra |
 
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>use_gpu</code></b></td><td><code>"auto"</code></td></tr>
-<tr><td colspan="2">
-GPU for spaCy. <code>auto</code> detects CUDA. <code>always</code> forces GPU. <code>never</code> forces CPU.
-</td></tr>
-</table>
+<br/>
 
 ---
 
 ### Auto-Model Routing
 
-<table>
-<tr><td><b><code>auto_model_enabled</code></b></td><td><code>true</code></td></tr>
-<tr><td colspan="2">
-Auto-select models based on request complexity. Needs multiple backends or models.
-</td></tr>
-</table>
+<br/>
 
-<table>
-<tr><td><b><code>auto_tier_fast</code></b></td><td><code>""</code></td></tr>
-<tr><td colspan="2">
-Model for quick, simple requests. Empty = disabled.
-</td></tr>
-</table>
+| Setting | Default | What It Does |
+|---------|---------|-------------|
+| **`auto_model_enabled`** | `true` | Auto-select model by complexity |
+| **`auto_tier_fast`** | `""` | Model for quick requests. Empty = disabled |
+| **`auto_tier_balanced`** | `""` | Model for typical conversations |
+| **`auto_tier_smart`** | `""` | Model for complex reasoning |
 
-<table>
-<tr><td><b><code>auto_tier_balanced</code></b></td><td><code>""</code></td></tr>
-<tr><td colspan="2">
-Model for typical conversations. Your "default."
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>auto_tier_smart</code></b></td><td><code>""</code></td></tr>
-<tr><td colspan="2">
-Model for complex reasoning, coding, and analysis.
-</td></tr>
-</table>
+<br/>
 
 ---
 
 ### Agent Settings
 
-<table>
-<tr><td><b><code>agent_enabled</code></b></td><td><code>false</code></td></tr>
-<tr><td colspan="2">
-Enable the agent framework. Certain requests trigger a multi-step tool-using loop instead of a single LLM call.
-</td></tr>
-</table>
+<br/>
 
-<table>
-<tr><td><b><code>agent_auto_detect</code></b></td><td><code>true</code></td></tr>
-<tr><td colspan="2">
-Let UPtrim decide when to use agent mode. Off = must be explicitly triggered.
-</td></tr>
-</table>
+| Setting | Default | What It Does | When To Change |
+|---------|:-------:|-------------|----------------|
+| **`agent_enabled`** | `false` | Enable agent framework | Turn on for tool-using tasks |
+| **`agent_auto_detect`** | `true` | Auto-trigger on coding/research tasks | Off = must be explicit |
+| **`agent_max_iterations`** | `10` | Max loop iterations | Complex coding: 15–25 |
+| **`agent_timeout_seconds`** | `120` | Hard timeout (seconds) | Increase for big tasks |
+| **`agent_tools`** | *(all)* | Comma-separated enabled tools | Restrict for safety |
+| **`agent_model_override`** | `""` | Force specific model for agents | Use your best model here |
+| **`agent_sub_agents_enabled`** | `true` | Allow sub-agent spawning | Powerful but uses more compute |
+| **`agent_max_sub_agents`** | `3` | Max parallel sub-agents | Higher = more parallelism |
 
-<table>
-<tr><td><b><code>agent_max_iterations</code></b></td><td><code>10</code></td></tr>
-<tr><td colspan="2">
-Safety limit on agent loop iterations. 10 handles most tasks. Complex coding might need 15–25.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>agent_timeout_seconds</code></b></td><td><code>120</code></td></tr>
-<tr><td colspan="2">
-Hard timeout for the entire agent session. Returns whatever progress it has.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>agent_tools</code></b></td><td><i>(comma-separated list)</i></td></tr>
-<tr><td colspan="2">
-Which tools the agent can use. Restrict to only allow tools you're comfortable with.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>agent_model_override</code></b></td><td><code>""</code></td></tr>
-<tr><td colspan="2">
-Force a specific model for agent tasks. Useful to always use your most capable model.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>agent_sub_agents_enabled</code></b></td><td><code>true</code></td></tr>
-<tr><td colspan="2">
-Allow sub-agent spawning for parallel work. Powerful but uses more compute.
-</td></tr>
-</table>
-
-<table>
-<tr><td><b><code>agent_max_sub_agents</code></b></td><td><code>3</code></td></tr>
-<tr><td colspan="2">
-Max concurrent sub-agents. Higher = more parallelism, more backend load.
-</td></tr>
-</table>
+<br/>
 
 ---
 
 ### Open WebUI Integration
 
-<table>
-<tr><td><b><code>auto_create_owui_users</code></b></td><td><code>true</code></td></tr>
-<tr><td colspan="2">
-Auto-create accounts when new Open WebUI users are detected.
-</td></tr>
-</table>
+<br/>
 
-<table>
-<tr><td><b><code>owui_base_url</code></b></td><td><code>""</code></td></tr>
-<tr><td colspan="2">
-Your Open WebUI URL. Used for connectivity testing in the dashboard.
-</td></tr>
-</table>
+| Setting | Default | What It Does |
+|---------|---------|-------------|
+| **`auto_create_owui_users`** | `true` | Auto-create accounts for new OWUI users |
+| **`owui_base_url`** | `""` | OWUI URL for connectivity testing |
+
+<br/>
 
 ---
 
 ### UI & Behavior
 
-<table>
-<tr><td><b><code>enable_tui</code></b></td><td><code>true</code></td></tr>
-<tr><td colspan="2">
-Show terminal UI when running. <code>false</code> for cleaner headless output.
-</td></tr>
-</table>
+<br/>
 
-<table>
-<tr><td><b><code>greet_new_users</code></b></td><td><code>true</code></td></tr>
-<tr><td colspan="2">
-Store a welcome greeting for new users. The model greets them warmly on first conversation.
-</td></tr>
-</table>
+| Setting | Default | What It Does |
+|---------|:-------:|-------------|
+| **`enable_tui`** | `true` | Show terminal UI. `false` for cleaner headless output |
+| **`greet_new_users`** | `true` | Store welcome greeting for new users |
+
+<br/>
 
 ---
 
 ### Development & Experimental
 
-<table>
-<tr><td><b><code>dev_mode_enabled</code></b></td><td><code>false</code></td></tr>
-<tr><td colspan="2">
-Developer-only debug endpoints. <b>Don't enable in production.</b>
-</td></tr>
-</table>
+<br/>
 
-<table>
-<tr><td><b><code>experimental_file_tools</code></b></td><td><code>false</code></td></tr>
-<tr><td colspan="2">
-Experimental file manipulation tools. May be unstable.
-</td></tr>
-</table>
+| Setting | Default | What It Does |
+|---------|:-------:|-------------|
+| **`dev_mode_enabled`** | `false` | Debug endpoints. **Don't enable in production** |
+| **`experimental_file_tools`** | `false` | Experimental features. May be unstable |
+
+<br/>
 
 ---
 
 ### Remote Access Settings
 
-<table>
-<tr><td><b><code>cf_tunnel_token</code></b></td><td><code>""</code></td></tr>
-<tr><td colspan="2">
-Cloudflare Tunnel token. Easiest to set via dashboard Tunnels panel.
-</td></tr>
-</table>
+<br/>
 
-<table>
-<tr><td><b><code>ts_authkey</code></b></td><td><code>""</code></td></tr>
-<tr><td colspan="2">
-Tailscale auth key. Set via dashboard Tunnels panel.
-</td></tr>
-</table>
+| Setting | Default | What It Does |
+|---------|---------|-------------|
+| **`cf_tunnel_token`** | `""` | Cloudflare Tunnel token (set via dashboard) |
+| **`ts_authkey`** | `""` | Tailscale auth key (set via dashboard) |
+| **`ts_hostname`** | `""` | Custom Tailscale hostname |
 
-<table>
-<tr><td><b><code>ts_hostname</code></b></td><td><code>""</code></td></tr>
-<tr><td colspan="2">
-Custom hostname for your Tailscale node (e.g., <code>uptrim-proxy</code>).
-</td></tr>
-</table>
+<br/>
 
 ---
 
-### Performance Tuning (Environment Variables)
+### Performance Tuning
 
-> These are set as **environment variables**, not in config.json.
+<br/>
+
+> These are **environment variables**, not config.json settings.
+
+<br/>
 
 | Variable | Default | What To Know |
 |----------|---------|-------------|
-| `THREAD_POOL_SIZE` | `min(8, cpu+2)` | Main thread pool. Increase on beefy servers. |
-| `EXTRACT_POOL_SIZE` | `pool_size // 2` | Memory extraction threads. Increase if extraction feels slow. |
-| `GC_EVERY_REQUESTS` | `200` | Garbage collection frequency. Lower = less RAM, more CPU. |
-| `POOL_RECYCLE_REQUESTS` | `500` | DB connection recycling. Prevents stale connections. |
-| `WORKERS` | `1` | Uvicorn workers. >1 only if you understand SQLite implications. |
+| `THREAD_POOL_SIZE` | `min(8, cpu+2)` | Main thread pool. Increase on powerful servers |
+| `EXTRACT_POOL_SIZE` | `pool_size // 2` | Memory extraction threads |
+| `GC_EVERY_REQUESTS` | `200` | Garbage collection frequency. Lower = less RAM, more CPU |
+| `POOL_RECYCLE_REQUESTS` | `500` | DB connection recycling interval |
+| `WORKERS` | `1` | Uvicorn workers. >1 needs care with SQLite |
+
+<br/>
 
 <div align="right">
-
-[Back to top](#table-of-contents)
-
+<a href="#-guide">Back to top ↑</a>
 </div>
 
 ---
 
+<br/>
+
 ## 💳 Licensing & Tiers
 
-UPtrim works immediately with a **free trial**. Paid tiers unlock more features.
+<br/>
+
+UPtrim works immediately with a **free trial**. Paid tiers unlock more.
+
+<br/>
 
 ### Feature Comparison
 
-| | <sub>Trial (Free)</sub> | <sub>Earlybird ($40/yr)</sub> | <sub>Standard ($100/yr)</sub> | <sub>Premium ($200/yr)</sub> |
+<br/>
+
+| | <img src="https://img.shields.io/badge/Trial-Free-gray?style=flat-square" /> | <img src="https://img.shields.io/badge/Earlybird-$40%2Fyr-0080ff?style=flat-square" /> | <img src="https://img.shields.io/badge/Standard-$100%2Fyr-8b5cf6?style=flat-square" /> | <img src="https://img.shields.io/badge/Premium-$200%2Fyr-f59e0b?style=flat-square" /> |
 |:--|:--:|:--:|:--:|:--:|
-| **Memories per user** | 30 | Unlimited | Unlimited | Unlimited |
+| **Memories / user** | 30 | ∞ | ∞ | ∞ |
 | **LLM Backends** | 1 | 5 | 5 | 10 |
 | **Upload Storage** | 15 MB | 25 MB | 25 MB | 1 GB |
 | Custom Prompts | | ✅ | ✅ | ✅ |
@@ -1586,48 +1370,63 @@ UPtrim works immediately with a **free trial**. Paid tiers unlock more features.
 | Dev Settings | | | | ✅ |
 | CLI Access | | | | ✅ |
 
+<br/>
+
 ### How to Activate
 
-<details>
-<summary><b>At startup</b></summary>
+<br/>
 
+<table>
+<tr>
+<td width="33%" valign="top" align="center">
+
+**At Startup**
+
+Enter your key when prompted:
 ```
-Enter license key: XXXXX-XXXXX-XXXXX-XXXXX
+XXXXX-XXXXX-XXXXX-XXXXX
 ```
 
-</details>
+</td>
+<td width="33%" valign="top" align="center">
 
-<details>
-<summary><b>From the dashboard</b></summary>
+**From Dashboard**
 
-Navigate to **Settings → License → Enter Key → Activate**
+Settings → License → Enter Key → Activate
 
-</details>
+</td>
+<td width="33%" valign="top" align="center">
 
-<details>
-<summary><b>Via API</b></summary>
+**Via API**
 
 ```bash
-curl -X POST http://localhost:9099/api/license/activate \
-  -H "Authorization: Bearer YOUR_DASH_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"key": "XXXXX-XXXXX-XXXXX-XXXXX"}'
+POST /api/license/activate
+Authorization: Bearer TOKEN
+{"key": "XXXXX-XXXXX-..."}
 ```
 
-</details>
+</td>
+</tr>
+</table>
+
+<br/>
 
 > [!NOTE]
-> Licenses work offline for up to **14 days** using cached validation.
+> Licenses work **offline for up to 14 days** using cached validation.
+
+<br/>
 
 <div align="right">
-
-[Back to top](#table-of-contents)
-
+<a href="#-guide">Back to top ↑</a>
 </div>
 
 ---
 
+<br/>
+
 ## 🔧 Troubleshooting
+
+<br/>
 
 <details>
 <summary><b>"Cannot connect to upstream"</b></summary>
@@ -1636,29 +1435,10 @@ curl -X POST http://localhost:9099/api/license/activate \
 
 Your LLM backend isn't reachable.
 
-1. **Is it running?** Try: `curl http://your-backend-url/v1/models`
-2. **Check the `upstream` setting** — does it match where your backend actually is?
-3. **Different machine?** Make sure firewalls aren't blocking the port
-4. **Docker?** Use the container name or host IP, not `localhost`
-
-</details>
-
-<details>
-<summary><b>"spaCy model not found"</b></summary>
-
-<br/>
-
-```bash
-python -m spacy download en_core_web_sm
-```
-
-UPtrim works without spaCy (falls back to regex), but extraction is noticeably better with it.
-
-For best quality with GPU:
-```bash
-pip install spacy[cuda12x]
-python -m spacy download en_core_web_trf
-```
+- **Is it running?** Try accessing its URL directly
+- **Check `upstream` setting** — does it match where your backend actually is?
+- **Different machine?** Check firewalls aren't blocking the port
+- **Docker?** Use the container name or host IP, not `localhost`
 
 </details>
 
@@ -1667,10 +1447,10 @@ python -m spacy download en_core_web_trf
 
 <br/>
 
-- **Short messages** (under 3 words) skip extraction by design — nothing useful to extract
-- **Check NLP status** in the dashboard. If it says `regex_only` and you expected spaCy, reinstall it
+- **Short messages** (under 3 words) skip extraction — nothing useful to extract
+- **Check NLP status** in dashboard — `regex_only` means spaCy isn't loaded
 - **Memory cap hit** — check `mem_max_per_user`
-- **Tier limit** — trial is capped at 30 memories per user
+- **Tier limit** — trial caps at 30 memories per user
 
 </details>
 
@@ -1681,8 +1461,8 @@ python -m spacy download en_core_web_trf
 
 - Check file size against `upload_max_mb` (default: 100 MB)
 - Check total storage against `upload_max_bytes_per_user` (default: 500 MB)
-- Make sure the file extension is [supported](#supported-file-types)
-- Check the dashboard logs for the specific error message
+- Make sure the file extension is [supported](#supported-formats)
+- Check dashboard logs for the specific error
 
 </details>
 
@@ -1691,11 +1471,9 @@ python -m spacy download en_core_web_trf
 
 <br/>
 
-Three options:
-
-1. **Check terminal history** — it was printed at first startup
-2. **Set your own** — add `"dash_token_custom": "mytoken"` to `config.json` and restart
-3. **Regenerate** — use the API key (also printed at startup): `POST /api/regenerate-api-key`
+1. **Check console output** from first startup
+2. **Set your own** — `"dash_token_custom": "mytoken"` in config.json
+3. **Regenerate** via `/api/regenerate-api-key`
 
 </details>
 
@@ -1704,10 +1482,10 @@ Three options:
 
 <br/>
 
-- Disable file embeddings if you don't need semantic search: `file_embedding_enabled: false`
-- Lower `mem_max_per_user` to cap stored memories
-- Reduce `THREAD_POOL_SIZE` and `EXTRACT_POOL_SIZE` env vars
-- Lower `POOL_RECYCLE_REQUESTS` to recycle DB connections more often
+- Disable file embeddings: `file_embedding_enabled: false`
+- Lower `mem_max_per_user`
+- Reduce `THREAD_POOL_SIZE` and `EXTRACT_POOL_SIZE`
+- Lower `POOL_RECYCLE_REQUESTS`
 
 </details>
 
@@ -1716,10 +1494,10 @@ Three options:
 
 <br/>
 
-- Check **Dashboard → Identity Info** to see how resolution is configured
-- Behind a reverse proxy? Make sure its IP is in `trusted_proxies`
-- For Open WebUI, check `trust_owui_headers` setting
-- Use **Dashboard → Debug Headers** to see exactly what headers arrive
+- Check **Dashboard → Identity Info**
+- Behind a reverse proxy? Add its IP to `trusted_proxies`
+- Check `trust_owui_headers` setting
+- Use **Dashboard → Debug Headers** to inspect incoming headers
 
 </details>
 
@@ -1728,35 +1506,48 @@ Three options:
 
 <br/>
 
-- **`context_tokens` mismatch** — this is the #1 cause. Set it to match your actual model's context size.
-- **Memories overwhelming context** — lower `mem_max_inject` or `hard_limit`
-- **Long conversations** — reduce `recent_keep` to free room
-- **Reserve too low** — check that `reserve_tokens` leaves enough room for input
+- **#1 cause:** `context_tokens` doesn't match your actual model — fix this first
+- Lower `mem_max_inject` or `hard_limit` if memories overwhelm context
+- Reduce `recent_keep` for more room
+- Check `reserve_tokens` leaves enough input space
 
 </details>
 
 <details>
-<summary><b>Slow response times</b></summary>
+<summary><b>Slow responses</b></summary>
 
 <br/>
 
-- Install `orjson` for 3–10x faster JSON: `pip install orjson`
-- Install `uvloop` (Linux/macOS) for faster networking: `pip install uvloop`
-- Check if spaCy transformer mode is bottlenecking on CPU — switch to `full_spacy` or add a GPU
+- Check if NLP is bottlenecking on CPU — switch from `spacy_trf` to `full_spacy`
 - Reduce `file_embedding_topk` if semantic search is slow
+- Check backend health — the LLM itself might be the bottleneck
 
 </details>
 
+<br/>
+
+<div align="right">
+<a href="#-guide">Back to top ↑</a>
+</div>
+
 ---
+
+<br/>
 
 <div align="center">
 
 <br/>
 
-<img src="https://img.shields.io/badge/UPtrim_Context_Proxy-v1.17.0-0080ff?style=for-the-badge" alt="UPtrim v1.17.0" />
+<img src="https://img.shields.io/badge/UPtrim_Context_Proxy-v1.0.0-0080ff?style=for-the-badge" alt="UPtrim v1.0.0" />
+
+<br/><br/>
 
 **Your AI remembers everything. Finally.**
 
-<sub>Built with FastAPI, SQLite, FAISS, and spaCy</sub>
+<br/>
+
+<sub>Made with care. Ships as a single package. Just run it.</sub>
+
+<br/><br/>
 
 </div>
