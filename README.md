@@ -1355,7 +1355,7 @@ UPtrim works immediately with a **free developer key** — no sign-up, no credit
 
 > **`4XC7N-K2RS3-NXSF6-M5CXA-AL8PU`**
 >
-> This key is **free for life** on v1.0.0. Paste it at startup, in the dashboard, or via the API. Everyone gets the same key — no account needed.
+> This key is **free for life** on v1.0.0 with limitations. Paste it at startup, in the dashboard, or via the API. Everyone gets the same key — no account needed.
 
 <br/>
 
