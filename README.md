@@ -1,5 +1,3 @@
-# UPtrim
- UPtrim gives your local AI a real memory. It sits between your chat app and your AI, remembering who you are, what you've talked about, and what matters to you — across every conversation. Multi-user support, smart context   management, file uploads, agent mode, and a full dashboard. Works with Open WebUI, SillyTavern, llama.cpp, Ollama, and more.
 <div align="center">
 
 <br/>
@@ -14,17 +12,17 @@
 
 # UPtrim Context Proxy
 
-### Your AI remembers everything. Finally.
+### Your AI forgets you. We fix that.
 
 <br/>
 
-Every conversation. Every user. Every fact — remembered automatically.<br/>
-Drop-in memory layer for any OpenAI-compatible LLM backend.<br/>
-**Zero changes to your existing setup.**
+Every time you close a chat, your AI starts over — your name, your preferences, your projects, gone.<br/>
+UPtrim gives any local LLM a permanent memory. Drop it in, change nothing, and your AI finally knows who you are.<br/>
+**Works with what you already use. No code changes. No cloud.**
 
 <br/>
 
-[Get Started](#-getting-started) &nbsp;&nbsp;|&nbsp;&nbsp; [Features](#-what-you-get) &nbsp;&nbsp;|&nbsp;&nbsp; [Settings Guide](#-every-setting-explained) &nbsp;&nbsp;|&nbsp;&nbsp; [Licensing](#-licensing--tiers)
+[Get Started](#-getting-started) &nbsp;&nbsp;|&nbsp;&nbsp; [What We Fix](#-six-problems-we-fix) &nbsp;&nbsp;|&nbsp;&nbsp; [Settings Guide](#-every-setting-explained) &nbsp;&nbsp;|&nbsp;&nbsp; [Licensing](#-licensing--tiers)
 
 <br/>
 
@@ -57,48 +55,48 @@ Drop-in memory layer for any OpenAI-compatible LLM backend.<br/>
 
 <br/>
 
-## 🎯 What You Get
+## 🎯 Six Problems We Fix
 
 <table>
 <tr>
 <td width="50%" valign="top">
 
-### 🧠 &nbsp; Persistent Memory
-Every user gets their own memory space. Facts are extracted from conversations automatically — names, preferences, work info, relationships — and injected back when relevant. Your model never forgets.
+### 🧠 &nbsp; Your AI Forgets You Every Time
+Every new chat starts from zero — your name, preferences, and projects all gone. UPtrim automatically learns facts from your conversations and brings up the right ones at the right time. Your AI finally knows who you are.
 
 </td>
 <td width="50%" valign="top">
 
-### 📁 &nbsp; Talk To Your Files
-Upload PDFs, spreadsheets, code, docs — 33+ file types. Ask questions and UPtrim finds the right file, pulls the right section, and gives the model what it needs. Even handles *"compare the two contracts."*
-
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
-
-### 🔀 &nbsp; Multi-Backend Routing
-Connect up to 10 LLM backends. Auto-route simple questions to fast models and complex tasks to powerful ones. Save compute without sacrificing quality.
-
-</td>
-<td width="50%" valign="top">
-
-### 🔐 &nbsp; Per-User Isolation
-Every user's memory and files are completely isolated. Multi-source identity resolution — OWUI headers, API tokens, custom headers — no data leaks between users.
+### 📁 &nbsp; Your AI Can't Read Your Documents
+The answer is sitting in a PDF or a spreadsheet, but your AI can't touch it. Upload files (33+ types) and ask questions — UPtrim finds the right file, pulls the right section, and hands it to the model.
 
 </td>
 </tr>
 <tr>
 <td width="50%" valign="top">
 
-### 🤖 &nbsp; Agent Framework
-Multi-step tool-calling agent loop for capable models. File editing, code execution, web search, sub-agents — with configurable safety limits.
+### 🔀 &nbsp; One Model Can't Do Everything
+Quick questions waste your best model's time. Hard problems overwhelm your fast model. Connect up to 10 backends and let UPtrim auto-route — simple questions go to the fast model, complex tasks go to the powerful one.
 
 </td>
 <td width="50%" valign="top">
 
-### 🧬 &nbsp; Learns Over Time
-Knowledge graph builds connections across conversations. Persona engine adapts to each user's style. Predictive context pre-loads what you'll need before you ask.
+### 🔐 &nbsp; Shared AI Means Shared Memories
+When multiple people use the same AI, everyone's data bleeds together. UPtrim gives every user their own isolated memory space — your team shares one AI, but nobody sees anyone else's data.
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+### 🤖 &nbsp; You Shouldn't Have to Do the Legwork
+When your AI doesn't know something, you end up switching tabs, searching, and pasting results back in. Agent mode lets the AI search the web, fetch URLs, edit files, and run code on its own.
+
+</td>
+<td width="50%" valign="top">
+
+### 🧬 &nbsp; Long Chats Go Off the Rails
+After enough back-and-forth, your AI forgets what you said 20 messages ago and starts repeating itself. UPtrim keeps important details visible and summarizes the rest — chat for hours without it falling apart.
 
 </td>
 </tr>
@@ -357,7 +355,7 @@ The dashboard lives at **`http://localhost:9099/dashboard`**. Log in with the se
 
 <br/>
 
-Every conversation is automatically analyzed for facts worth remembering:
+Your AI forgets your name the moment you close the chat. UPtrim fixes that — every conversation is automatically analyzed for facts worth remembering:
 
 <br/>
 
@@ -444,7 +442,7 @@ Next time that user chats, relevant facts are quietly injected into the context.
 
 <br/>
 
-Users upload files and ask questions about them. UPtrim figures out which file(s) they mean and injects the relevant content.
+The answer is sitting in a PDF on your desktop, but your AI can't touch it. Upload files and just ask — UPtrim figures out which file(s) you mean and injects the relevant content.
 
 <br/>
 
@@ -571,7 +569,7 @@ auto_tier_smart:     "gpt-4"           ←  complex reasoning, coding
 
 <br/>
 
-Every user gets **completely isolated** memory and files. User A never sees User B's data.
+When multiple people share one AI, everyone's context bleeds together. UPtrim keeps every user **completely isolated** — User A never sees User B's data.
 
 <br/>
 
@@ -638,7 +636,7 @@ Every user gets **completely isolated** memory and files. User A never sees User
 
 <br/>
 
-For capable models — a multi-step tool-calling loop. The model plans, acts, observes, and iterates until the task is done.
+Tired of switching tabs to look things up for your AI? Agent mode lets the model plan, act, and iterate on its own — web search, file editing, code execution — until the task is done.
 
 <br/>
 
@@ -693,11 +691,11 @@ For capable models — a multi-step tool-calling loop. The model plans, acts, ob
 
 <br/>
 
-## 🧬 Advanced Intelligence
+## 🧬 Problems That Solve Themselves
 
 <br/>
 
-These run in the background. No configuration needed — they activate when enabled for your tier.
+These run invisibly in the background. No configuration needed — they activate when enabled for your tier.
 
 <br/>
 
@@ -706,29 +704,29 @@ These run in the background. No configuration needed — they activate when enab
 <td width="50%" valign="top">
 
 <details>
-<summary><b>👻 Ghost Agent Swarm</b></summary>
+<summary><b>👻 Your AI Waits for You to Do the Legwork</b></summary>
 
 <br/>
 
-Background workers predict what context you'll need and pre-assemble it before your request hits the model. Faster responses, better relevance.
+Ghost Agent fixes this — invisible background workers fetch URLs, search the web, and scan your memories *before* your request even hits the model. You get better answers without asking for them.
 
 </details>
 
 <details>
-<summary><b>🕸️ Knowledge Graph</b></summary>
+<summary><b>🕸️ Flat Memory Misses the Connections</b></summary>
 
 <br/>
 
-Builds a web of relationships — people, places, organizations, concepts — across all conversations. Ask about something connected to something else and it finds those links.
+Storing facts as a flat list means your AI knows isolated details but can't see how they relate. Knowledge Graph builds a web of relationships — people, projects, concepts — across all conversations, so your AI understands context the way you do.
 
 </details>
 
 <details>
-<summary><b>🎭 Persona Engine</b></summary>
+<summary><b>🎭 Everyone Gets the Same Generic Voice</b></summary>
 
 <br/>
 
-Learns each user's communication style. Detailed vs. concise? Technical vs. plain? Formal vs. casual? The model adapts automatically.
+One person wants concise technical answers, another wants friendly explanations — but the AI talks to everyone the same way. Persona Engine learns each user's preferred style and adapts automatically.
 
 </details>
 
@@ -736,29 +734,29 @@ Learns each user's communication style. Detailed vs. concise? Technical vs. plai
 <td width="50%" valign="top">
 
 <details>
-<summary><b>🔮 Predictive Context</b></summary>
+<summary><b>🔮 Your AI Never Follows Up on Anything</b></summary>
 
 <br/>
 
-Tracks conversation flow patterns. Go from "project updates" to "code review" often? Next time, code memories are pre-loaded before you ask.
+You say "I need to finish the report by Friday" and the AI says "Good luck!" then never mentions it again. Predictive Context tracks conversation patterns and pre-loads what you'll need before you ask.
 
 </details>
 
 <details>
-<summary><b>😴 Memory Consolidation</b></summary>
+<summary><b>😴 Old Memories Pile Up and Conflict</b></summary>
 
 <br/>
 
-Like sleep for your AI's memory. During idle time: merge duplicates, strengthen important connections, let irrelevant memories fade. Keeps things lean.
+The more your AI remembers, the messier it gets — duplicates, outdated info, contradictions. Memory Gardener runs during idle time: merges duplicates, resolves conflicts, and keeps everything lean without you lifting a finger.
 
 </details>
 
 <details>
-<summary><b>🧬 Intent Classification</b></summary>
+<summary><b>🧬 Your AI Treats Every Message the Same</b></summary>
 
 <br/>
 
-Analyzes each message — question, task, brainstorm, debug — and adjusts how memories are selected and prioritized for that type.
+A quick question, a debugging session, and a brainstorming request all need different context — but your AI doesn't know that. Intent Classification analyzes each message and adjusts which memories get prioritized for that type.
 
 </details>
 
@@ -1342,7 +1340,7 @@ Set to `0` to disable expiration. Lower if memory gets cluttered.
 
 <br/>
 
-UPtrim works immediately with a **free trial**. Paid tiers unlock more.
+UPtrim works immediately with a **free developer key** — no sign-up, no credit card. Hit a limit? Paid tiers remove caps and unlock advanced features.
 
 <br/>
 
@@ -1542,11 +1540,11 @@ Your LLM backend isn't reachable.
 
 <br/><br/>
 
-**Your AI remembers everything. Finally.**
+**Your AI forgets you. We fix that.**
 
 <br/>
 
-<sub>Made with care. Ships as a single package. Just run it.</sub>
+<sub>Ships as a single package. Download it, run it, and your AI never forgets again.</sub>
 
 <br/><br/>
 
