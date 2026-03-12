@@ -159,6 +159,11 @@ Run UPtrim. On first launch:
 
 <br/>
 
+> [!TIP]
+> **Free developer key (v1.0.0):** `4XC7N-K2RS3-NXSF6-M5CXA-AL8PU` — enter it when prompted. Free for life, no account needed.
+
+<br/>
+
 > [!IMPORTANT]
 > If your LLM backend isn't at `localhost:8080`, set your upstream URL in the dashboard after startup — no restart needed. Or configure the `upstream` setting before launching.
 
@@ -1341,6 +1346,16 @@ Set to `0` to disable expiration. Lower if memory gets cluttered.
 <br/>
 
 UPtrim works immediately with a **free developer key** — no sign-up, no credit card. Hit a limit? Paid tiers remove caps and unlock advanced features.
+
+<br/>
+
+### Free Developer Key
+
+<br/>
+
+> **`4XC7N-K2RS3-NXSF6-M5CXA-AL8PU`**
+>
+> This key is **free for life** on v1.0.0. Paste it at startup, in the dashboard, or via the API. Everyone gets the same key — no account needed.
 
 <br/>
 
